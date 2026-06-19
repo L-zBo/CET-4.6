@@ -1,0 +1,239 @@
+/* ========== Flashcard ========== */
+.flashcard-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.session-resume-panel {
+  max-width: 580px;
+  margin: -8px auto 20px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.88rem;
+}
+
+.session-resume-panel strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.session-resume-panel .resume-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .session-resume-panel {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .session-resume-panel .resume-actions {
+    justify-content: stretch;
+  }
+
+  .session-resume-panel .resume-actions .btn {
+    flex: 1;
+  }
+}
+
+.flashcard-counter {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.flashcard-counter span { color: var(--amber); }
+
+.flashcard-stage {
+  perspective: 1200px;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.flashcard {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.4s var(--ease);
+  will-change: transform;
+}
+
+.flashcard.flipped { transform: rotateY(180deg); }
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  transition: box-shadow var(--t-normal);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+
+.flashcard:hover .flashcard-face {
+  box-shadow: var(--shadow-glow-amber);
+}
+
+.flashcard-back { transform: rotateY(180deg); }
+
+.fc-word {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+
+.fc-phonetic {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.speak-btn {
+  margin-top: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-secondary);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-full);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.speak-btn:hover {
+  background: var(--amber);
+  color: var(--bg-deep);
+  border-color: var(--amber);
+  transform: scale(1.1);
+}
+
+.fc-speak-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.speak-btn-accent {
+  width: auto;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  border-radius: var(--r-full);
+  gap: 4px;
+}
+
+.fc-freq-tag {
+  margin-top: 12px;
+  padding: 4px 12px;
+  border-radius: var(--r-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fc-hint {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fc-meaning {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.fc-example {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-top: 16px;
+  text-align: center;
+  font-style: italic;
+  max-width: 400px;
+}
+
+/* 闪卡/复习卡背面的词根+记忆法额外区域 */
+.fc-extra {
+  margin-top: 16px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.fc-roots {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.fc-memory {
+  font-size: 0.8rem;
+  color: var(--amber);
+  opacity: 0.85;
+  line-height: 1.5;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.18);
+  border-radius: var(--r-md);
+  padding: 8px 12px;
+}
+
+.mini-tip-label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+  padding: 2px 7px;
+  border-radius: var(--r-full);
+  background: rgba(245, 158, 11, 0.16);
+  color: var(--amber);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  vertical-align: 1px;
+}
+
+.flashcard-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 32px;
+}

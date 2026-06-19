@@ -1,0 +1,634 @@
+/* ========== CET-6 词汇大师 — Deep Space Theme ========== */
+
+/* --- Google Fonts via embedded base64 fallback for offline --- */
+/* We use system fonts with fallbacks that look great offline */
+
+:root {
+  /* Core palette — deep ocean + amber accents */
+  --bg-deep: #080c18;
+  --bg: #0d1321;
+  --bg-surface: #141b2d;
+  --bg-card: rgba(20, 27, 45, 0.55);
+  --bg-card-solid: #161e33;
+  --bg-hover: rgba(30, 42, 71, 0.7);
+  --bg-elevated: #1a2340;
+
+  /* Text */
+  --text: #e8edf5;
+  --text-secondary: #7b8ba8;
+  --text-muted: #6b7b98;
+  --text-dim: #5a6d8d;  /* 2026-05-18 调整：旧值 #3d4f6e 对比度 2.1:1 不达标，新值 3.2:1 AA-large ✓ */
+
+  /* z-index layers */
+  --z-bg: -1;
+  --z-base: 1;
+  --z-header: 100;
+  --z-offline: 200;
+  --z-modal: 500;
+  --z-detail: 600;
+  --z-popup: 650;
+  --z-permission: 700;
+  --z-toast: 1000;
+  --z-skip: 9999;
+
+  /* Accent — warm amber */
+  --amber: #f0a500;
+  --amber-light: #ffd166;
+  --amber-dim: rgba(240, 165, 0, 0.12);
+  --amber-glow: rgba(240, 165, 0, 0.25);
+  --amber-rgb: 240, 165, 0;
+
+  /* Accent — emerald */
+  --emerald: #34d399;
+  --emerald-dim: rgba(52, 211, 153, 0.12);
+  --emerald-glow: rgba(52, 211, 153, 0.2);
+  --emerald-rgb: 52, 211, 153;
+
+  /* Accent — coral for errors */
+  --coral: #f87171;
+  --coral-dim: rgba(248, 113, 113, 0.12);
+  --coral-glow: rgba(248, 113, 113, 0.2);
+  --coral-rgb: 248, 113, 113;
+
+  /* Accent — sky blue */
+  --sky: #60a5fa;
+  --sky-dim: rgba(96, 165, 250, 0.12);
+  --sky-glow: rgba(96, 165, 250, 0.2);
+  --sky-rgb: 96, 165, 250;
+
+  /* Accent — violet */
+  --violet: #a78bfa;
+  --violet-dim: rgba(167, 139, 250, 0.12);
+  --violet-rgb: 167, 139, 250;
+
+  /* Alias for modules that use --muted */
+  --muted: var(--text-muted);
+
+  /* Borders & misc */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-subtle: rgba(255, 255, 255, 0.03);
+  --border-active: rgba(240, 165, 0, 0.3);
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
+  --shadow-glow-amber: 0 0 40px rgba(240,165,0,0.08);
+  --shadow-glow-emerald: 0 0 40px rgba(52,211,153,0.08);
+
+  /* Transitions */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --t-fast: 150ms var(--ease);
+  --t-normal: 300ms var(--ease);
+  --t-slow: 500ms var(--ease);
+
+  /* ============================================================
+     ↓↓↓ 新增：完整色阶 + 语义 token（2026-05-18 由 color-palette 生成）
+     设计目标：
+       1. 把品牌 amber #f0a500 扩成 11 阶（50-950），后续 hover/active/disabled
+          直接挑相邻阶即可，不用临时 rgba 调
+       2. 引入语义 token：组件层只引用 --semantic-* 而非具体 hex / amber 阶，
+          以后改主色只动 :root，下层零修改
+       3. 所有文字色组合通过 WCAG AA 4.5:1（normal）/ 3:1（large）
+     旧变量保留不删，新代码用语义 token。
+     ============================================================ */
+
+  /* —— Amber 11 阶（品牌主色 #f0a500 = amber-500） —— */
+  --amber-50:  #FFF9E6;
+  --amber-100: #FFF0BD;
+  --amber-200: #FFE085;
+  --amber-300: #FFCE52;
+  --amber-400: #FFBA29;
+  --amber-500: #F0A500;  /* 品牌主色，等价于旧 --amber */
+  --amber-600: #C28500;
+  --amber-700: #946400;
+  --amber-800: #664500;
+  --amber-900: #3D2A00;
+  --amber-950: #1F1500;
+
+  /* —— Surface（背景由深到浅，按视觉层级用）—— */
+  --semantic-bg:           var(--bg-deep);     /* 页面最底层 */
+  --semantic-bg-surface:   var(--bg);          /* 主容器 */
+  --semantic-bg-elevated:  var(--bg-surface);  /* 卡片 / 抬升面 */
+  --semantic-bg-popover:   #1a223a;            /* 弹窗 / Tooltip */
+  --semantic-bg-hover:     rgba(255, 255, 255, 0.04);
+
+  /* —— Foreground（文字色，对比度已检 AA）—— */
+  --semantic-fg:           var(--text);            /* 主文 e8edf5 ⓪ 14:1 ✓✓✓ */
+  --semantic-fg-secondary: var(--text-secondary);  /* 副文 7b8ba8 ⓪  5.5:1 ✓ */
+  --semantic-fg-muted:     #5a6d8d;                /* 替代旧 text-dim ⓪ 3.2:1 ✓ large */
+  --semantic-fg-on-brand:  var(--amber-950);       /* amber 上的字 ⓪ 9:1 ✓✓ */
+
+  /* —— Primary（主品牌色，按钮 / 链接 / 强调）—— */
+  --semantic-primary:           var(--amber-500);
+  --semantic-primary-hover:     var(--amber-400);
+  --semantic-primary-active:    var(--amber-600);
+  --semantic-primary-fg:        var(--amber-950);    /* 在 primary 上的文字 */
+  --semantic-primary-subtle:    rgba(240, 165, 0, 0.12);
+  --semantic-primary-subtle-fg: var(--amber-300);
+
+  /* —— Accent（次要强调，徽章 / 选中）—— */
+  --semantic-accent:    var(--amber-300);
+  --semantic-accent-fg: var(--amber-950);
+
+  /* —— 反馈色（destructive / success / warning / info）—— */
+  --semantic-destructive:    var(--coral);
+  --semantic-destructive-fg: #ffffff;
+  --semantic-success:        var(--emerald);
+  --semantic-success-fg:     #042817;
+  --semantic-warning:        var(--amber-400);
+  --semantic-warning-fg:     #2a1c00;
+  --semantic-info:           var(--sky);
+  --semantic-info-fg:        #051a35;
+
+  /* —— Border / Ring（边框 / 焦点环）—— */
+  --semantic-border:        rgba(255, 255, 255, 0.08);
+  --semantic-border-strong: rgba(255, 255, 255, 0.16);
+  --semantic-border-focus:  var(--amber-500);
+  --semantic-ring:          rgba(240, 165, 0, 0.55);   /* :focus-visible outline */
+
+  /* —— Input / Form —— */
+  --semantic-input-bg:     rgba(255, 255, 255, 0.04);
+  --semantic-input-border: rgba(255, 255, 255, 0.10);
+  --semantic-input-focus:  var(--amber-500);
+}
+
+/* ============================================================
+   备选主题（通过 <html data-theme="X"> 切换）
+   ============================================================ */
+
+/* Theme: Glacier Mist — 浅色调升级版 */
+:root[data-theme="glacier"] {
+  --bg-deep: #eef2f7;
+  --bg: #f5f8fc;
+  --bg-surface: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-card-solid: #ffffff;
+  --bg-hover: rgba(217, 119, 6, 0.06);
+  --bg-elevated: rgba(255, 255, 255, 0.85);
+
+  --text: #1a2540;
+  --text-secondary: #4a5878;
+  --text-muted: #6b7b98;
+  --text-dim: #94a3b8;
+
+  --amber: #d97706;
+  --amber-light: #f59e0b;
+  --amber-dim: rgba(217, 119, 6, 0.10);
+  --amber-glow: rgba(217, 119, 6, 0.20);
+  --amber-rgb: 217, 119, 6;
+
+  --border: rgba(15, 25, 50, 0.08);
+  --border-subtle: rgba(15, 25, 50, 0.04);
+  --border-active: rgba(217, 119, 6, 0.40);
+
+  --shadow-sm: 0 2px 8px rgba(15, 25, 50, 0.08);
+  --shadow-md: 0 8px 24px rgba(15, 25, 50, 0.10);
+  --shadow-lg: 0 16px 48px rgba(15, 25, 50, 0.12);
+}
+
+/* Glacier 主题强制覆盖：背景图提亮褪色 + 卡片改成真白色 */
+:root[data-theme="glacier"] .bg-layer img.bg-img {
+  filter: brightness(1.6) saturate(0.45) contrast(0.9);
+}
+:root[data-theme="glacier"] #bg-overlay {
+  background: linear-gradient(180deg, rgba(245,248,252,0.82) 0%, rgba(232,238,247,0.90) 100%) !important;
+}
+:root[data-theme="glacier"] .dash-hero,
+:root[data-theme="glacier"] .stat-card,
+:root[data-theme="glacier"] .quick-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.88), rgba(248,250,253,0.72)) !important;
+  border-color: rgba(15,25,50,0.08) !important;
+  color: #1a2540;
+}
+:root[data-theme="glacier"] .header {
+  background: rgba(255,255,255,0.75) !important;
+  border-bottom-color: rgba(15,25,50,0.08);
+}
+
+/* Theme: Ocean Depths — 深海蓝 + Teal 主色 */
+:root[data-theme="ocean"] {
+  --bg-deep: #0a1929;
+  --bg: #0f2336;
+  --bg-surface: #16314a;
+  --bg-card: rgba(22, 49, 74, 0.55);
+  --bg-card-solid: #1a3a58;
+  --bg-hover: rgba(20, 184, 166, 0.10);
+  --bg-elevated: #1f4566;
+
+  --text: #e8f4f8;
+  --text-secondary: #93b9ce;
+  --text-muted: #6b97b3;
+  --text-dim: #4a6b85;
+
+  --amber: #0d9488;
+  --amber-light: #2dd4bf;
+  --amber-dim: rgba(13, 148, 136, 0.12);
+  --amber-glow: rgba(13, 148, 136, 0.25);
+  --amber-rgb: 13, 148, 136;
+
+  --emerald: #14b8a6;
+  --coral: #fb7185;
+  --sky: #60a5fa;
+
+  --border: rgba(147, 197, 253, 0.08);
+  --border-active: rgba(13, 148, 136, 0.40);
+  --shadow-glow-amber: 0 0 40px rgba(13, 148, 136, 0.15);
+}
+
+/* Theme: Sunset Boulevard — 暖橙/玫红 */
+:root[data-theme="sunset"] {
+  --bg-deep: #1c1410;
+  --bg: #261a14;
+  --bg-surface: #322218;
+  --bg-card: rgba(50, 34, 24, 0.55);
+  --bg-card-solid: #3a2820;
+  --bg-hover: rgba(244, 63, 94, 0.10);
+  --bg-elevated: #422e24;
+
+  --text: #fdf4ed;
+  --text-secondary: #d4b8a4;
+  --text-muted: #a08770;
+  --text-dim: #6b5847;
+
+  --amber: #f43f5e;
+  --amber-light: #fb7185;
+  --amber-dim: rgba(244, 63, 94, 0.12);
+  --amber-glow: rgba(244, 63, 94, 0.25);
+  --amber-rgb: 244, 63, 94;
+
+  --emerald: #fb923c;
+  --coral: #f43f5e;
+  --sky: #c084fc;
+
+  --border: rgba(253, 244, 237, 0.08);
+  --border-active: rgba(244, 63, 94, 0.40);
+  --shadow-glow-amber: 0 0 40px rgba(244, 63, 94, 0.15);
+}
+
+/* ============================================================
+   主题选择器 UI（设置面板里的 4 个色块按钮）
+   ============================================================ */
+.theme-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.theme-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--bg-card);
+  cursor: pointer;
+  color: var(--text);
+  transition: border-color var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
+}
+
+.theme-btn:hover {
+  border-color: var(--border-active);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.theme-btn.active {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 1px var(--amber-glow), var(--shadow-sm);
+}
+
+.theme-swatch {
+  display: block;
+  width: 100%;
+  height: 36px;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+.theme-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.theme-tag {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ========== Reset ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Reset button defaults for semantic buttons used as cards/containers */
+button.level-card,
+button.stat-card,
+button.quick-card {
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  background: none;
+  border: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; color-scheme: dark; }
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: var(--z-skip);
+  padding: 8px 16px;
+  background: var(--amber);
+  color: var(--bg-deep);
+  border-radius: var(--r-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+body {
+  font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Soft ambient background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(240,165,0,0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(52,211,153,0.02) 0%, transparent 50%);
+  background-size: 100% 100%, 100% 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ========== Typography ========== */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.15rem; }
+
+/* ========== Layout ========== */
+.app-container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* ========== Scrollbar ========== */
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bg-hover); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ========== 彩色卡片主题（闪卡/测验/拼写通用） ========== */
+.card-theme-amber {
+  background: linear-gradient(135deg, rgba(240,165,0,0.10), rgba(255,209,102,0.06)) !important;
+  border-color: rgba(240,165,0,0.25) !important;
+}
+.card-theme-emerald {
+  background: linear-gradient(135deg, rgba(52,211,153,0.10), rgba(110,231,183,0.06)) !important;
+  border-color: rgba(52,211,153,0.25) !important;
+}
+.card-theme-sky {
+  background: linear-gradient(135deg, rgba(96,165,250,0.10), rgba(147,197,253,0.06)) !important;
+  border-color: rgba(96,165,250,0.25) !important;
+}
+.card-theme-coral {
+  background: linear-gradient(135deg, rgba(248,113,113,0.10), rgba(252,165,165,0.06)) !important;
+  border-color: rgba(248,113,113,0.25) !important;
+}
+.card-theme-violet {
+  background: linear-gradient(135deg, rgba(167,139,250,0.10), rgba(196,181,253,0.06)) !important;
+  border-color: rgba(167,139,250,0.25) !important;
+}
+.card-theme-rose {
+  background: linear-gradient(135deg, rgba(251,113,133,0.10), rgba(253,164,175,0.06)) !important;
+  border-color: rgba(251,113,133,0.25) !important;
+}
+.card-theme-teal {
+  background: linear-gradient(135deg, rgba(45,212,191,0.10), rgba(94,234,212,0.06)) !important;
+  border-color: rgba(45,212,191,0.25) !important;
+}
+.card-theme-orange {
+  background: linear-gradient(135deg, rgba(251,146,60,0.10), rgba(253,186,116,0.06)) !important;
+  border-color: rgba(251,146,60,0.25) !important;
+}
+
+/* ========== Focus Visible ========== */
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* Remove default outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ========== Reduced Motion ========== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* 闪卡翻转属于功能性动画，减弱但不完全禁用 */
+  .flashcard {
+    transition-duration: 0.3s !important;
+  }
+}
+
+/* ========== Touch ========== */
+button, a, select, input, .clickable {
+  touch-action: manipulation;
+}
+
+/* ========== Custom Select Styling ========== */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: rgba(20, 27, 45, 0.6);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 10px 36px 10px 14px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237b8ba8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 14 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+select:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(26, 35, 64, 0.7);
+}
+
+select:focus {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px var(--amber-dim), 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+select option {
+  background: #1a2340;
+  color: var(--text);
+  padding: 8px;
+}
+
+/* ========== Random Tint Modules ========== */
+/* 各模块使用不同的随机色调半透明背景，统一 0.55 透明度 + blur 毛玻璃效果 */
+#page-dashboard .stat-card {
+  background: hsla(var(--tint-h-0, 220), 40%, 15%, 0.55);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}
+
+#page-dashboard .quick-card {
+  background: hsla(var(--tint-h-1, 220), 40%, 15%, 0.55);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}
+
+#page-dashboard .streak-card {
+  background: hsla(var(--tint-h-2, 220), 35%, 14%, 0.55);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}
+
+.quiz-setup-card,
+.quiz-question-card {
+  background: hsla(var(--tint-h-3, 220), 38%, 15%, 0.55) !important;
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+
+.spell-card {
+  background: hsla(var(--tint-h-4, 220), 38%, 14%, 0.55) !important;
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+
+/* backdrop-filter 移至 .flashcard-face 避免破坏 backface-visibility */
+.flashcard {
+  background: transparent !important;
+}
+
+.quiz-choice {
+  background: hsla(var(--tint-h-6, 220), 35%, 13%, 0.5) !important;
+  backdrop-filter: blur(8px) saturate(1.2);
+  -webkit-backdrop-filter: blur(8px) saturate(1.2);
+}
+
+#page-review .flashcard {
+  background: transparent !important;
+}
+
+.setting-card,
+.settings-card {
+  background: hsla(var(--tint-h-2, 220), 35%, 14%, 0.55);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}
+
+/* Dashboard: 问候区、每日目标、进度、打卡 */
+.dash-hero {
+  background: hsla(var(--tint-h-0, 220), 35%, 14%, 0.55);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+
+.daily-goal-bar {
+  background: hsla(var(--tint-h-1, 220), 36%, 14%, 0.55);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}
+
+.progress-section {
+  background: hsla(var(--tint-h-3, 220), 35%, 14%, 0.55);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}
+
+.streak-section {
+  background: hsla(var(--tint-h-2, 220), 34%, 13%, 0.55);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}
+
+/* Quiz: 头部栏、结果卡片、错题回顾 */
+.quiz-header-bar {
+  background: hsla(var(--tint-h-3, 220), 36%, 14%, 0.55);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}
+
+.result-card {
+  background: hsla(var(--tint-h-5, 220), 36%, 15%, 0.55);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+
+.wrong-review-list {
+  background: hsla(var(--tint-h-7, 220), 34%, 13%, 0.55);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}
+
+/* Notebook: 错题项 */
+.notebook-item {
+  background: hsla(var(--tint-h-6, 220), 34%, 13%, 0.55);
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+}
+
+/* Review: 复习卡片 */
+.review-card {
+  background: hsla(var(--tint-h-7, 220), 35%, 14%, 0.55);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}

@@ -1,0 +1,297 @@
+/* ========== 题型强化练习样式 ========== */
+
+.practice-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.practice-trigger-btn {
+  flex: 1;
+  min-width: 140px;
+  padding: 14px 20px;
+  background: var(--bg-hover);
+  border: 2px solid var(--border);
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.practice-trigger-btn:hover {
+  background: var(--bg-subtle);
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.practice-btn-icon {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  font-family: 'Courier New', monospace;
+}
+
+.practice-btn-text {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ========== 练习弹窗 ========== */
+
+.practice-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.25s var(--ease);
+}
+
+.practice-modal {
+  background: var(--bg-card-solid);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalIn 0.35s var(--ease);
+}
+
+.practice-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.practice-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.practice-close {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-full);
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s var(--ease);
+}
+
+.practice-close:hover {
+  background: var(--bg-subtle);
+  transform: rotate(90deg);
+}
+
+.practice-body {
+  padding: 28px;
+}
+
+.practice-question-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  background: var(--bg-subtle);
+  padding: 16px 20px;
+  border-radius: var(--r-md);
+  border-left: 4px solid var(--accent-primary);
+  margin-bottom: 20px;
+}
+
+.practice-hint {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  padding-left: 8px;
+}
+
+.practice-hint strong {
+  color: var(--accent-primary);
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
+/* 首字母填空输入框 */
+.practice-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1.05rem;
+  border: 2px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  transition: all 0.2s var(--ease);
+  font-family: inherit;
+}
+
+.practice-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(240, 165, 0, 0.1);
+}
+
+.practice-submit-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+
+.practice-submit-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(240, 165, 0, 0.3);
+}
+
+/* 选词填空选项 */
+.practice-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.practice-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--bg-hover);
+  border: 2px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  text-align: left;
+}
+
+.practice-option-btn:hover:not(:disabled) {
+  background: var(--bg-subtle);
+  border-color: var(--accent-primary);
+  transform: translateX(4px);
+}
+
+.option-label {
+  width: 32px;
+  height: 32px;
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.option-word {
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.practice-option-btn.correct {
+  background: rgba(100, 200, 100, 0.15);
+  border-color: #64c864;
+}
+
+.practice-option-btn.correct .option-label {
+  background: #64c864;
+}
+
+.practice-option-btn.wrong {
+  background: rgba(255, 100, 100, 0.15);
+  border-color: #ff6464;
+}
+
+.practice-option-btn.wrong .option-label {
+  background: #ff6464;
+}
+
+/* 答题结果 */
+.practice-result {
+  padding: 20px 28px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  animation: slideDown 0.3s var(--ease);
+}
+
+.practice-result.correct {
+  background: rgba(100, 200, 100, 0.1);
+}
+
+.practice-result.wrong {
+  background: rgba(255, 100, 100, 0.1);
+}
+
+.result-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.practice-result.correct .result-icon {
+  background: #64c864;
+  color: white;
+}
+
+.practice-result.wrong .result-icon {
+  background: #ff6464;
+  color: white;
+}
+
+.result-text {
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.result-text strong {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

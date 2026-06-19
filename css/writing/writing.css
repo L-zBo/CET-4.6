@@ -1,0 +1,709 @@
+/* ========== 写作模板模块样式 ========== */
+
+/* 标签栏 */
+.writing-tab-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.writing-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.writing-tab-btn.active {
+  background: var(--amber);
+  color: var(--bg-deep);
+  border-color: var(--amber);
+}
+.writing-tab-btn:hover:not(.active) {
+  border-color: var(--amber-dim);
+  color: var(--text);
+}
+
+/* 模板分类筛选栏 */
+.writing-tpl-cat-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 模板卡片 */
+.writing-templates {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.writing-tpl-card {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: box-shadow 0.2s;
+}
+.writing-tpl-card:hover {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.writing-tpl-header {
+  padding: 1.2rem 1.5rem;
+  cursor: pointer;
+  position: relative;
+}
+.writing-tpl-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+.writing-tpl-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(var(--amber-rgb), 0.15);
+  color: var(--amber);
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.writing-tpl-title h3 {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin: 0;
+}
+.writing-tpl-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+  padding-left: 2.8rem;
+}
+.writing-tpl-structure {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-left: 2.8rem;
+}
+.tpl-step {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: rgba(var(--amber-rgb), 0.08);
+  border-radius: 0.3rem;
+  font-size: 0.75rem;
+  color: var(--amber);
+}
+.writing-tpl-arrow {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  transition: transform 0.3s;
+}
+.writing-tpl-card.expanded .writing-tpl-arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* 模板展开内容 */
+.writing-tpl-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.writing-tpl-card.expanded .writing-tpl-body {
+  max-height: 2000px;
+}
+.writing-tpl-content {
+  padding: 1rem 1.5rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border);
+  white-space: pre-wrap;
+}
+.tpl-blank {
+  background: rgba(var(--amber-rgb), 0.12);
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  color: var(--amber);
+  font-style: italic;
+}
+.writing-copy-btn {
+  margin: 0.5rem 1.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ===== 万能句型 - 增强卡片风格 ===== */
+.writing-sentence-cat-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+/* 卡片网格 */
+.writing-sent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.2rem;
+}
+/* 句型卡片 */
+.writing-sent-card {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+.writing-sent-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  border-color: rgba(255,255,255,0.12);
+}
+/* 顶部渐变条 */
+.writing-sent-card-accent {
+  height: 4px;
+  background: linear-gradient(90deg, var(--sky), var(--amber), var(--emerald));
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.writing-sent-card:hover .writing-sent-card-accent {
+  opacity: 1;
+}
+/* 头部 */
+.writing-sent-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.2rem 0.4rem;
+}
+.writing-sent-card-idx {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(96, 165, 250, 0.12);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--sky);
+}
+.writing-sent-card-cat {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--emerald);
+  background: rgba(52, 211, 153, 0.1);
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(52, 211, 153, 0.2);
+}
+/* 内容区 */
+.writing-sent-card-body {
+  padding: 0 1.2rem;
+  flex: 1;
+}
+.writing-sent-card-zh {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+.writing-sent-card-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--amber-rgb), 0.3), transparent);
+  margin-bottom: 0.5rem;
+}
+.writing-sent-card-en {
+  font-size: 0.95rem;
+  color: var(--amber);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+/* 语法高亮 */
+.grammar-clause {
+  color: var(--emerald);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(52, 211, 153, 0.3);
+  text-underline-offset: 3px;
+}
+.grammar-modal {
+  color: var(--amber);
+  font-weight: 700;
+  background: rgba(var(--amber-rgb), 0.08);
+  padding: 0 0.2rem;
+  border-radius: 0.2rem;
+}
+.grammar-adv {
+  color: var(--violet, #a78bfa);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: rgba(167, 139, 250, 0.3);
+  text-underline-offset: 3px;
+}
+.grammar-parallel {
+  color: var(--coral, #f87171);
+  font-weight: 600;
+}
+
+/* 语法标签行 */
+.sent-grammar-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+.sent-grammar-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid;
+  border-radius: 999px;
+  opacity: 0.85;
+}
+
+/* 使用场景提示 */
+.sent-usage-tip {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  padding: 0.4rem 0.6rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.04);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+.sent-usage-tip svg {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* 底部（仅弹窗内保留） */
+.writing-sent-card-type {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--violet, #a78bfa);
+  background: rgba(167, 139, 250, 0.1);
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+/* 句型卡片 — 预览区 */
+.writing-sent-card-preview {
+  padding: 0 1.2rem 0.8rem;
+}
+
+/* 谚语卡片 — 预览区 */
+.writing-proverb-preview {
+  padding: 0 1.2rem 0.8rem;
+}
+
+/* ========== 句型/谚语 弹出详情卡片 ========== */
+.writing-detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: var(--z-detail, 900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  overscroll-behavior: contain;
+}
+.writing-detail-overlay.visible {
+  opacity: 1;
+}
+.writing-detail-modal {
+  background: rgba(20, 24, 38, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-xl, 1.2rem);
+  padding: 0;
+  max-width: 520px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg, 0 20px 60px rgba(0,0,0,0.4)), 0 0 80px rgba(240, 165, 0, 0.06);
+  transform: scale(0.92) translateY(16px);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+}
+.writing-detail-overlay.visible .writing-detail-modal {
+  transform: scale(1) translateY(0);
+}
+.writing-detail-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-full, 50%);
+  background: var(--bg-hover, rgba(255,255,255,0.06));
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+  z-index: 2;
+}
+.writing-detail-close:hover {
+  background: rgba(248, 113, 113, 0.15);
+  color: var(--coral, #f87171);
+  border-color: rgba(248, 113, 113, 0.3);
+}
+.writing-detail-header {
+  padding: 28px 28px 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.writing-detail-header--proverb {
+  /* 谚语弹窗头部可微调 */
+}
+.writing-detail-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 16px;
+}
+.writing-detail-zh {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.writing-detail-zh--proverb {
+  font-size: 1.35rem;
+}
+.writing-detail-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--amber-rgb, 240,165,0), 0.3), transparent);
+  margin-bottom: 12px;
+}
+.writing-detail-divider--proverb {
+  background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.3), transparent);
+}
+.writing-detail-en {
+  font-size: 1.05rem;
+  color: var(--amber);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.writing-detail-en--proverb {
+  font-size: 1.1rem;
+}
+.writing-detail-speak-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.writing-detail-body {
+  padding: 20px 28px 28px;
+}
+.writing-detail-section {
+  margin-bottom: 16px;
+}
+.writing-detail-section:last-child {
+  margin-bottom: 0;
+}
+.writing-detail-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted, var(--muted));
+  margin-bottom: 10px;
+}
+.writing-detail-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+}
+
+/* 弹窗内复用已有样式：sent-grammar-tags, proverb-grammar-section 等均可直接使用 */
+
+/* 弹窗响应式 */
+@media (max-width: 768px) {
+  .writing-detail-modal {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 1rem;
+  }
+  .writing-detail-header {
+    padding: 20px 18px 16px;
+  }
+  .writing-detail-body {
+    padding: 16px 18px 20px;
+  }
+}
+@media (max-width: 480px) {
+  .writing-detail-overlay {
+    padding: 12px;
+  }
+  .writing-detail-zh {
+    font-size: 1.05rem;
+  }
+  .writing-detail-en {
+    font-size: 0.95rem;
+  }
+}
+
+/* ===== 谚语 — 增强卡片风格 ===== */
+.writing-proverbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.2rem;
+}
+.writing-proverb-card {
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 1rem;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.writing-proverb-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  border-color: rgba(255,255,255,0.12);
+}
+/* 顶部渐变条 */
+.writing-proverb-accent {
+  height: 4px;
+  background: linear-gradient(90deg, var(--violet, #a78bfa), var(--amber), var(--coral, #f87171));
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.writing-proverb-card:hover .writing-proverb-accent {
+  opacity: 1;
+}
+
+.writing-proverb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1.2rem 0.4rem;
+}
+.writing-proverb-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.writing-proverb-idx {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(167, 139, 250, 0.12);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--violet, #a78bfa);
+}
+.writing-proverb-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--violet, #a78bfa);
+  background: rgba(167, 139, 250, 0.1);
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.writing-proverb-body {
+  padding: 0 1.2rem;
+  flex: 1;
+}
+.writing-proverb-zh {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 0.6rem;
+}
+.writing-proverb-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.3), transparent);
+  margin-bottom: 0.6rem;
+}
+.writing-proverb-en {
+  font-size: 1.05rem;
+  color: var(--amber);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 0.6rem;
+}
+
+/* 谚语语法结构分析 */
+.proverb-grammar-section {
+  margin-bottom: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.proverb-grammar-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
+.proverb-grammar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+}
+.proverb-grammar-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.08rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+.proverb-grammar-text {
+  font-size: 0.82rem;
+  color: var(--text-dim, var(--text));
+  font-style: italic;
+}
+
+/* 谚语关键词 */
+.proverb-keywords-section {
+  margin-bottom: 0.6rem;
+}
+.proverb-keywords-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+.proverb-keywords-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.proverb-keyword {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.12rem 0.5rem;
+  background: rgba(var(--amber-rgb), 0.08);
+  border: 1px solid rgba(var(--amber-rgb), 0.15);
+  border-radius: 999px;
+  color: var(--amber);
+  font-weight: 500;
+}
+
+/* 谚语使用场景 */
+.proverb-usage-tip {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  padding: 0.35rem 0.6rem;
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.04), rgba(var(--amber-rgb), 0.04));
+  border-radius: 0.5rem;
+  border: 1px solid rgba(167, 139, 250, 0.08);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+.proverb-usage-tip svg {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* 谚语底部（仅弹窗内保留） */
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .writing-sent-grid {
+    grid-template-columns: 1fr;
+  }
+  .writing-proverbs {
+    grid-template-columns: 1fr;
+  }
+  .writing-tab-bar {
+    overflow-x: auto;
+  }
+  .writing-tab-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .writing-sentence-cat-bar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 0.5rem;
+  }
+  .writing-sentence-cat-bar .trans-cat-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .writing-tpl-cat-bar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 0.5rem;
+  }
+  .writing-tpl-cat-bar .trans-cat-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}

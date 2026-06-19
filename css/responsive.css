@@ -1,0 +1,506 @@
+/* ========== Responsive ========== */
+
+/* ---------- Tablet / Small Desktop (≤1024px) ---------- */
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(3, 1fr); }
+  .quick-grid { grid-template-columns: repeat(2, 1fr); }
+  .review-dashboard { grid-template-columns: 1fr 1fr; }
+  .landing-cards { gap: 20px; }
+  .landing-tools-cards { gap: 20px; }
+}
+
+/* ---------- Tablet (≤768px) ---------- */
+@media (max-width: 768px) {
+  /* Header */
+  .header-inner { height: 56px; gap: 12px; }
+  .logo-text { display: none; }
+  .nav {
+    gap: 1px; padding: 2px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    padding: 6px 12px; font-size: 0.8rem;
+    flex-shrink: 0; min-height: 44px;
+    display: inline-flex; align-items: center;
+  }
+
+  /* Page */
+  .page { padding: 20px 16px; }
+
+  /* Dashboard */
+  .dash-hero { padding: 24px; }
+  .dash-greeting { font-size: 1.3rem; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-number { font-size: 1.6rem; }
+
+  /* Browse */
+  .word-item { grid-template-columns: 1fr auto; gap: 6px; }
+  .word-phonetic { display: none; }
+  .word-meaning { grid-column: 1 / -1; }
+
+  /* Flashcard */
+  .flashcard { max-width: 100%; }
+  .fc-word { font-size: 2rem; }
+  .flashcard-face { padding: 32px 24px; }
+  .flashcard-actions { gap: 6px; flex-wrap: wrap; }
+  .flashcard-actions .btn { padding: 10px 16px; font-size: 0.82rem; }
+
+  /* Quiz */
+  .quiz-setup { max-width: 100%; }
+  .quiz-area { max-width: 100%; }
+  .quiz-result { max-width: 100%; }
+  .quiz-question-card .question-text { font-size: 1.4rem; }
+
+  /* Review */
+  .review-dashboard { grid-template-columns: 1fr; }
+
+  /* Quick */
+  .quick-grid { grid-template-columns: 1fr; }
+
+  /* Settings */
+  .settings-grid { gap: 12px; }
+  .setting-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+
+  /* Tool pages */
+  .tool-page-inner { padding: 16px 16px 32px; }
+
+  /* Landing */
+  .landing-title { font-size: 2.4rem; }
+  .landing-tagline { font-size: 0.9rem; letter-spacing: 0.15em; }
+  .landing-cards { grid-template-columns: 1fr; gap: 20px; }
+  .landing-tools-cards { grid-template-columns: 1fr; gap: 20px; }
+  .landing-logo { width: 72px; height: 72px; border-radius: 20px; }
+  .landing-logo-char { font-size: 2.2rem; }
+  .level-card-inner { padding: 28px 20px; }
+  .level-name { font-size: 1.4rem; }
+  .landing-brand { margin-bottom: 40px; }
+
+  /* === Word Detail Modal === */
+  .word-detail-overlay { padding: 16px; }
+  .word-detail-modal {
+    max-height: 92vh;
+    border-radius: var(--r-lg);
+  }
+  .word-detail-header { padding: 20px 18px 16px; }
+  .word-detail-body { padding: 16px 18px; }
+  .word-detail-word { font-size: 1.8rem; }
+  .word-detail-phonetic { font-size: 1rem; }
+
+  /* === Translation Page === */
+  .trans-browse-grid { grid-template-columns: 1fr; }
+  .trans-detail-modal {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: var(--r-lg);
+  }
+  .trans-detail-header { padding: 20px 18px 16px; }
+  .trans-detail-body { padding: 14px 18px; }
+  .trans-mode-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+  }
+  .trans-mode-bar::-webkit-scrollbar { display: none; }
+  .trans-mode-btn { flex-shrink: 0; white-space: nowrap; }
+
+  /* === Writing Page === */
+  .writing-sent-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .writing-proverbs { grid-template-columns: 1fr; gap: 1rem; }
+  .writing-detail-modal {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: var(--r-lg);
+  }
+  .writing-detail-header { padding: 18px 16px 14px; }
+  .writing-detail-body { padding: 14px 16px; }
+
+  /* === All Modals Landscape === */
+  .word-detail-modal,
+  .trans-detail-modal,
+  .writing-detail-modal {
+    max-height: 90vh;
+  }
+}
+
+/* ---------- Mobile (≤480px) — 底部Tab栏 ---------- */
+@media (max-width: 480px) {
+  /* === Header 改为底部固定Tab栏（加上滑入过渡，避免 resize 时硬切割裂感） === */
+  .header {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0; right: 0;
+    z-index: var(--z-header, 100);
+    border-bottom: none;
+    border-top: 1px solid var(--border);
+    padding: 0;
+    background: rgba(8, 12, 24, 0.92);
+    backdrop-filter: blur(24px) saturate(1.8);
+    -webkit-backdrop-filter: blur(24px) saturate(1.8);
+    /* UX2 优化：底部 tab 从屏幕外滑入 */
+    animation: navSlideUp 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    transition: background var(--t-normal);
+  }
+  @keyframes navSlideUp {
+    0%   { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  /* nav-btn 触摸态从 hover 退化为 active：触屏环境 hover 没用 */
+  .nav-btn:active {
+    background: var(--amber-dim);
+    transform: scale(0.92);
+    transition: transform 0.08s ease-out, background 0.12s ease-out;
+  }
+  /* 当前 active 页用 amber 下划线（移动端 tab 经典样式）*/
+  .nav-btn.active {
+    color: var(--amber);
+    position: relative;
+  }
+  .nav-btn.active::after {
+    content: '';
+    position: absolute;
+    left: 25%;
+    right: 25%;
+    bottom: -2px;
+    height: 3px;
+    border-radius: 2px 2px 0 0;
+    background: var(--amber);
+    box-shadow: 0 0 8px var(--amber-glow);
+  }
+  .header-inner {
+    max-width: 100%; height: auto;
+    padding: 0; gap: 0;
+    flex-direction: column;
+  }
+  /* 隐藏logo区域 */
+  .logo { display: none; }
+  /* nav变为底部横排 */
+  .nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    gap: 0; padding: 4px 0 2px;
+    background: transparent;
+    border: none; border-radius: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 2px;
+    padding-bottom: env(safe-area-inset-bottom, 4px);
+    font-size: 0.6rem;
+    min-height: 50px;
+    min-width: 0;
+    flex: 1 1 0;
+    border-radius: 8px;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  .nav-btn .nav-icon {
+    width: 20px; height: 20px;
+    margin-right: 0;
+    margin-bottom: 1px;
+    display: block;
+  }
+  .nav-btn.active {
+    background: rgba(240,165,0,0.15);
+    color: var(--amber);
+    box-shadow: none;
+  }
+  .nav-btn .badge {
+    top: 2px; right: 50%;
+    transform: translateX(10px);
+  }
+
+  /* 主内容区域上移+底部留空给tab栏 */
+  .app-container { padding-bottom: 66px; }
+  .page { padding: 16px 12px 24px; }
+
+  /* === Dashboard === */
+  .dash-hero { padding: 16px; }
+  .dash-greeting { font-size: 1.1rem; }
+  .stats-grid { gap: 8px; grid-template-columns: repeat(2, 1fr); }
+  .stat-card { padding: 12px; }
+  .stat-number { font-size: 1.2rem; }
+  .stat-label { font-size: 0.7rem; }
+  .stat-icon { font-size: 1rem; }
+  .section-header { margin-bottom: 16px; }
+  .streak-section { padding: 16px; }
+  .streak-calendar-grid { gap: 3px; }
+  .streak-weekday-header { gap: 3px; }
+  .streak-dot { padding: 4px 1px 3px; }
+  .streak-dot-day { font-size: 0.82rem; }
+  .streak-dot-lunar { font-size: 0.48rem; }
+  .daily-goal-bar { padding: 12px 14px; }
+  .progress-section { padding: 16px; }
+
+  /* Quick cards */
+  .quick-card { padding: 14px; gap: 10px; }
+  .quick-card-icon { width: 40px; height: 40px; font-size: 1.1rem; }
+
+  /* === Browse === */
+  .browse-toolbar { flex-direction: column; }
+  .search-box { min-width: 100%; }
+  .word-item { padding: 12px 14px; }
+  .word-badge { padding: 3px 8px; font-size: 0.68rem; }
+  .pagination { gap: 3px; }
+  .pagination button { min-width: 40px; min-height: 40px; font-size: 0.8rem; }
+
+  /* === Flashcard === */
+  .flashcard { min-height: 240px; max-width: 100%; }
+  .flashcard-face { padding: 24px 16px; }
+  .fc-word { font-size: 1.7rem; }
+  .fc-meaning { font-size: 1.2rem; }
+  .fc-example { font-size: 0.85rem; }
+  .flashcard-actions .btn { padding: 10px 12px; font-size: 0.78rem; }
+  .fc-speak-row { gap: 8px; }
+  .speak-btn { min-width: 40px; min-height: 40px; }
+
+  /* === Quiz === */
+  .quiz-setup { max-width: 100%; }
+  .quiz-area { max-width: 100%; }
+  .quiz-result { max-width: 100%; }
+  .quiz-question-card { padding: 24px 16px; }
+  .quiz-question-card .question-text { font-size: 1.2rem; }
+  .quiz-choice { padding: 10px 14px; font-size: 0.9rem; }
+  .result-score { font-size: 2.5rem; }
+
+  /* === Spelling === */
+  .spell-letter-box { width: 32px; height: 40px; font-size: 0.85rem; }
+  .spell-card { padding: 16px 14px; }
+  .spell-card-meaning { font-size: 1.1rem; }
+  .spell-actions { gap: 8px; flex-wrap: wrap; }
+
+  /* === Tool Pages (翻译/写作) === */
+  .tool-page-inner { padding: 12px 12px 80px; }
+  .tool-header { gap: 0.5rem; margin-bottom: 1.2rem; padding-bottom: 0.8rem; }
+  .tool-header h2 { font-size: 1.1rem; }
+  .tool-back-btn { padding: 6px 10px; font-size: 0.78rem; }
+  .tool-weather-btn { padding: 6px; }
+  .tool-weather-btn svg,
+  .tool-weather-btn img { width: 18px; height: 18px; }
+
+  /* === Word Detail Modal — Mobile === */
+  .word-detail-overlay { padding: 8px; }
+  .word-detail-modal {
+    max-height: 95vh;
+    border-radius: var(--r-md);
+  }
+  .word-detail-header { padding: 16px 14px 12px; }
+  .word-detail-body { padding: 12px 14px; }
+  .word-detail-word { font-size: 1.5rem; }
+  .word-detail-close { width: 44px; height: 44px; }
+  .word-detail-speak-row { flex-wrap: wrap; gap: 8px; }
+  .word-detail-speak-btn { padding: 5px 12px; font-size: 0.75rem; }
+  .word-detail-example { padding: 12px 14px; font-size: 0.9rem; }
+  .word-detail-mnemonic { padding: 12px 14px; font-size: 0.88rem; }
+  .word-breakdown-blocks { gap: 4px; flex-wrap: wrap; }
+  .word-breakdown-block { padding: 8px 10px; min-width: 48px; }
+  .word-relation-tags { gap: 6px; flex-wrap: wrap; }
+  .word-relation-tag { padding: 4px 10px; font-size: 0.8rem; }
+
+  /* === Translation — Mobile === */
+  .trans-browse-grid { grid-template-columns: 1fr; }
+  .trans-detail-overlay { padding: 8px; }
+  .trans-detail-modal {
+    max-height: 95vh;
+    border-radius: var(--r-md);
+  }
+  .trans-detail-header { padding: 14px 12px 10px; }
+  .trans-detail-zh { font-size: 1.15rem; }
+  .trans-detail-en { font-size: 0.9rem; }
+  .trans-detail-body { padding: 10px 12px; }
+  .trans-detail-analysis-item { padding: 0.4rem 0.6rem; }
+  .trans-card-header { padding: 0.6rem 1rem 0.4rem; }
+  .trans-card-body { padding: 0 1rem; }
+  .trans-card-footer { padding: 0.4rem 1rem 0.6rem; }
+  .trans-zh { font-size: 1.1rem; }
+  .trans-en { font-size: 0.95rem; }
+  .trans-card { min-height: auto; }
+
+  /* === Writing — Mobile === */
+  .writing-sent-grid { grid-template-columns: 1fr; }
+  .writing-proverbs { grid-template-columns: 1fr; }
+  .writing-detail-overlay { padding: 8px; }
+  .writing-detail-modal {
+    max-height: 95vh;
+    border-radius: var(--r-md);
+  }
+  .writing-detail-header { padding: 12px 12px 10px; }
+  .writing-detail-close { width: 36px; height: 36px; font-size: 1.1rem; }
+  .writing-detail-zh { font-size: 1rem; }
+  .writing-detail-en { font-size: 0.88rem; }
+  .writing-detail-body { padding: 10px 12px; }
+  .writing-sent-card { min-height: auto; }
+  .writing-sent-card-body { padding: 0 1rem; }
+  .writing-sent-card-zh { font-size: 0.95rem; }
+  .writing-sent-card-en { font-size: 0.88rem; }
+  .writing-tpl-header { padding: 0.8rem 1rem; }
+  .writing-tpl-title h3 { font-size: 1rem; }
+  .writing-tpl-desc { padding-left: 2.1rem; font-size: 0.8rem; }
+  .writing-tpl-structure { padding-left: 2.1rem; gap: 0.3rem; }
+  .tpl-step { padding: 0.15rem 0.5rem; font-size: 0.7rem; }
+
+  /* === Settings — Mobile === */
+  .settings-card { padding: 16px; border-radius: var(--r-md); }
+  .settings-card h3 { font-size: 1rem; }
+  .settings-card .desc { font-size: 0.8rem; margin-bottom: 12px; }
+  .setting-row label { font-size: 0.88rem; }
+  .accent-btn { padding: 8px 14px; min-height: 40px; font-size: 0.82rem; }
+
+  /* === Break Reminder — Mobile === */
+  .break-modal { padding: 28px 20px 24px; }
+  .break-title { font-size: 1.2rem; }
+  .break-tip { font-size: 0.85rem; }
+  .break-actions { flex-direction: column; gap: 8px; }
+  .break-actions .btn { padding: 12px 16px; font-size: 0.9rem; }
+
+  /* Landing */
+  .landing-title { font-size: 2rem; }
+  .landing-tagline { font-size: 0.8rem; }
+
+  /* Toast避开底部tab栏 */
+  .toast-container { top: 16px; right: 16px; left: 16px; }
+  .toast { font-size: 0.82rem; padding: 10px 16px; }
+
+  /* 返回顶部按钮避开底部tab栏 */
+  .back-to-top-btn { bottom: 80px; right: 16px; }
+}
+
+/* ---------- Extra Small (≤360px) ---------- */
+@media (max-width: 360px) {
+  .nav-btn { padding: 3px 1px; font-size: 0.55rem; min-height: 48px; }
+  .nav-btn .nav-icon { width: 18px; height: 18px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .dash-greeting { font-size: 1rem; }
+  .streak-dot-day { font-size: 0.75rem; }
+  .streak-dot-lunar { font-size: 0.44rem; }
+
+  /* Landing */
+  .landing-title { font-size: 1.6rem; }
+  .landing-cards { gap: 12px; }
+  .landing-tools-cards { gap: 12px; }
+  .level-card-inner { padding: 20px 14px; }
+  .level-name { font-size: 1.2rem; }
+
+  /* Word Detail */
+  .word-detail-word { font-size: 1.3rem; }
+  .word-detail-close { width: 40px; height: 40px; font-size: 1.1rem; }
+  .word-breakdown-block { padding: 6px 8px; min-width: 40px; font-size: 0.75rem; }
+
+  /* Translation */
+  .trans-detail-zh { font-size: 1rem; }
+  .trans-card-idx { width: 24px; height: 24px; font-size: 0.65rem; }
+
+  /* Writing */
+  .writing-detail-zh { font-size: 0.9rem; }
+  .writing-sent-card-zh { font-size: 0.9rem; }
+  .writing-tpl-num { width: 24px; height: 24px; font-size: 0.8rem; }
+
+  /* Settings */
+  .settings-card { padding: 12px; }
+  .accent-toggle { gap: 4px; }
+  .accent-btn { flex: 1; padding: 8px 10px; }
+
+  /* Flashcard */
+  .flashcard { min-height: 220px; }
+  .fc-word { font-size: 1.3rem; }
+  .fc-meaning { font-size: 0.95rem; }
+
+  /* Spelling */
+  .spell-letter-box { width: 28px; height: 36px; font-size: 0.9rem; }
+  .spell-letter-boxes { gap: 3px; }
+
+  /* Pagination */
+  .pagination button { min-width: 36px; min-height: 36px; }
+}
+
+/* ---------- Touch Device Enhancements ---------- */
+@media (hover: none) and (pointer: coarse) {
+  /* 增大可点击区域 */
+  .btn, button { min-height: 44px; }
+  .streak-dot { min-height: 36px; }
+  .word-item { min-height: 48px; }
+  .quiz-choice { min-height: 48px; }
+
+  /* 取消桌面hover效果，改用active */
+  .streak-dot:hover { transform: none; }
+  .streak-dot:active { transform: scale(0.95); }
+  .nav-btn:hover { background: transparent; color: var(--text-secondary); }
+  .nav-btn:active { background: var(--bg-hover); }
+  .nav-btn.active:hover,
+  .nav-btn.active:active {
+    background: rgba(240,165,0,0.15);
+    color: var(--amber);
+  }
+
+  /* 表单元素触摸增强 */
+  input[type="text"],
+  input[type="search"],
+  select,
+  textarea {
+    min-height: 44px;
+    font-size: 16px; /* 防止iOS自动缩放 */
+  }
+  .search-box input { min-height: 44px; }
+  select.filter-select { min-height: 44px; }
+  .quiz-option-group select { min-height: 44px; }
+
+  /* 禁用tap高亮 */
+  * { -webkit-tap-highlight-color: transparent; }
+}
+
+/* ---------- Landscape Mobile ---------- */
+@media (max-width: 768px) and (orientation: landscape) {
+  .header-inner { height: 48px; }
+  .nav-btn { min-height: 40px; }
+  .flashcard { min-height: 200px; }
+  .dash-hero { padding: 12px 16px; }
+
+  /* 横屏弹窗高度限制 */
+  .word-detail-modal,
+  .trans-detail-modal,
+  .writing-detail-modal { max-height: 85vh; }
+}
+@media (max-width: 480px) and (orientation: landscape) {
+  /* 横屏时底部tab栏更紧凑 */
+  .nav-btn {
+    min-height: 42px;
+    padding: 2px 2px;
+    padding-bottom: env(safe-area-inset-bottom, 2px);
+  }
+  .nav-btn .nav-icon { width: 16px; height: 16px; }
+  .app-container { padding-bottom: 54px; }
+
+  /* 横屏弹窗进一步缩小 */
+  .word-detail-modal,
+  .trans-detail-modal,
+  .writing-detail-modal { max-height: 80vh; }
+  .word-detail-word,
+  .trans-detail-zh,
+  .writing-detail-zh { font-size: 1.2rem; }
+}
+
+/* ---------- Safe Area (iPhone X+ 刘海屏) ---------- */
+@supports (padding: env(safe-area-inset-bottom)) {
+  @media (max-width: 480px) {
+    .header { padding-bottom: env(safe-area-inset-bottom); }
+    .app-container { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
+    .tool-page-inner { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+    /* 弹窗也需要考虑safe-area */
+    .word-detail-modal,
+    .trans-detail-modal,
+    .writing-detail-modal {
+      max-height: calc(95vh - env(safe-area-inset-bottom));
+    }
+  }
+}

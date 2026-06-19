@@ -1,0 +1,25 @@
+/* ========== Ace-The-CET — 样式汇总入口 ========== */
+/* 所有模块化CSS通过 @import 引入，便于维护 */
+/* 注意：如果使用 file:// 协议且 @import 不生效，请在 index.html 中使用多个 <link> 标签 */
+
+/* 基础 & 通用 */
+@import url('base.css');
+@import url('components.css');
+@import url('dashboard.css');
+@import url('settings.css');
+
+/* 词汇模块 */
+@import url('vocab/browse.css');
+@import url('vocab/flashcard.css');
+@import url('vocab/quiz.css');
+@import url('vocab/spelling.css');
+@import url('vocab/word-detail.css');
+
+/* 翻译模块 */
+@import url('translation/translation.css');
+
+/* 写作模块 */
+@import url('writing/writing.css');
+
+/* 响应式 */
+@import url('responsive.css');

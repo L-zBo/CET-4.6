@@ -1,0 +1,728 @@
+/* ========== 真题例句样式 ========== */
+.word-real-exam-sentences {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.real-exam-sentence {
+  background: var(--bg-subtle);
+  border-left: 3px solid var(--accent-primary);
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+}
+
+.exam-source-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.exam-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--r-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+}
+
+.exam-tag.exam-year {
+  background: rgba(240, 165, 0, 0.15);
+  color: var(--accent-primary);
+}
+
+.exam-tag.exam-type {
+  background: rgba(100, 150, 255, 0.15);
+  color: #6496ff;
+}
+
+.exam-tag.exam-paper {
+  background: var(--bg-hover);
+  color: var(--text-muted);
+}
+
+.exam-sentence-content {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.exam-sentence-content mark {
+  background: rgba(240, 165, 0, 0.25);
+  color: var(--accent-primary);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.exam-more-hint {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* ========== 考频星级样式 ========== */
+.word-star-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--r-md);
+  font-size: 0.85rem;
+  margin-left: 12px;
+  vertical-align: middle;
+}
+
+.word-star-rating.freq-high {
+  background: rgba(255, 100, 100, 0.15);
+  color: #ff6464;
+}
+
+.word-star-rating.freq-mid {
+  background: rgba(240, 165, 0, 0.15);
+  color: var(--accent-primary);
+}
+
+.word-star-rating.freq-low {
+  background: rgba(150, 150, 150, 0.15);
+  color: var(--text-muted);
+}
+
+.freq-label-inline {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* ========== Word Detail Modal ========== */
+.word-detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: var(--z-detail);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.25s var(--ease);
+  overscroll-behavior: contain;
+}
+
+.word-detail-modal {
+  background: var(--bg-card-solid);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 0;
+  max-width: 560px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg), 0 0 80px rgba(240, 165, 0, 0.08);
+  animation: modalIn 0.35s var(--ease);
+}
+
+.word-detail-header {
+  padding: 32px 32px 24px;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.word-detail-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-full);
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--t-fast), color var(--t-fast);
+}
+
+.word-detail-close:hover {
+  background: var(--coral-dim);
+  color: var(--coral);
+  border-color: rgba(248, 113, 113, 0.3);
+}
+
+.word-detail-word {
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+
+.word-detail-phonetic {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  font-style: italic;
+  margin-bottom: 12px;
+}
+
+.word-detail-speak-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.word-detail-speak-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  padding: 6px 16px;
+  border-radius: var(--r-full);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.word-detail-speak-btn:hover {
+  background: var(--amber);
+  color: var(--bg-deep);
+  border-color: var(--amber);
+}
+
+.word-detail-speak-btn.active {
+  background: var(--amber-dim);
+  border-color: rgba(240, 165, 0, 0.3);
+  color: var(--amber);
+}
+
+.word-detail-freq {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--r-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+}
+
+.word-detail-body {
+  padding: 24px 32px 32px;
+}
+
+.word-detail-section {
+  margin-bottom: 20px;
+}
+
+.word-detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.word-detail-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.word-detail-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+.word-detail-meaning {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.word-detail-example {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.6;
+  border-left: 3px solid var(--amber);
+}
+
+.word-detail-mnemonic {
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(96, 165, 250, 0.06));
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.word-detail-mnemonic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.word-detail-mnemonic-item {
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(96, 165, 250, 0.06));
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  border-left: 3px solid rgba(167, 139, 250, 0.55);
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.word-study-hooks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.word-study-hook {
+  min-height: 76px;
+  padding: 12px 14px;
+  border: 1px solid rgba(96, 165, 250, 0.16);
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.08), rgba(16, 185, 129, 0.05));
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.word-study-hook .hook-label {
+  color: var(--sky);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.word-study-hook .hook-text {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.word-detail-status {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.word-detail-status-tag {
+  padding: 6px 14px;
+  border-radius: var(--r-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.word-detail-status-tag.mastered {
+  background: var(--emerald-dim);
+  color: var(--emerald);
+}
+
+.word-detail-status-tag.learning {
+  background: var(--amber-dim);
+  color: var(--amber);
+}
+
+.word-detail-status-tag.new {
+  background: var(--bg-hover);
+  color: var(--text-muted);
+}
+
+.word-detail-status-tag.wrong {
+  background: var(--coral-dim);
+  color: var(--coral);
+}
+
+/* Word detail responsive */
+@media (max-width: 768px) {
+  .word-study-hooks {
+    grid-template-columns: 1fr;
+  }
+
+  .word-detail-modal {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: var(--r-lg);
+  }
+  .word-detail-header {
+    padding: 24px 20px 20px;
+  }
+  .word-detail-body {
+    padding: 20px;
+  }
+  .word-detail-word {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .word-detail-overlay {
+    padding: 12px;
+  }
+  .word-detail-word {
+    font-size: 1.7rem;
+  }
+}
+
+/* ========== Word Relations (词族/形近词) ========== */
+.word-relation-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.word-relation-tag {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r-md);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  min-width: 0;
+}
+.word-relation-tag .rel-word {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.92rem;
+}
+.word-relation-tag .rel-meaning {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+.word-relation-tag.missing .rel-word { color: var(--text-muted); }
+
+/* 网格布局让多条 tag 整齐排列 */
+.rel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.word-relation-tag.clickable {
+  cursor: pointer;
+  border-color: rgba(96,165,250,0.2);
+  background: rgba(96,165,250,0.06);
+}
+.word-relation-tag.clickable .rel-word { color: var(--sky); }
+
+.word-relation-tag.clickable:hover {
+  background: rgba(96,165,250,0.15);
+  border-color: rgba(96,165,250,0.4);
+  transform: translateY(-1px);
+}
+
+.word-relation-tag.current {
+  background: rgba(240,165,0,0.12);
+  border-color: rgba(240,165,0,0.3);
+  color: var(--amber-light);
+  font-weight: 600;
+}
+.word-relation-tag.current .rel-word { color: var(--amber-light); }
+
+.word-relation-confusable {
+  margin-top: 6px;
+}
+
+.word-relation-tip {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: rgba(240,165,0,0.06);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ========== 构词拆解可视化 ========== */
+.word-breakdown {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  padding: 18px;
+}
+
+.word-breakdown-blocks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.word-breakdown-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 10px;
+  min-width: 54px;
+  transition: transform 0.2s;
+}
+
+.word-breakdown-block:hover {
+  transform: scale(1.05);
+}
+
+.word-breakdown-block.prefix {
+  background: rgba(96,165,250,0.12);
+  border: 1px solid rgba(96,165,250,0.25);
+}
+
+.word-breakdown-block.root {
+  background: rgba(240,165,0,0.12);
+  border: 1px solid rgba(240,165,0,0.25);
+}
+
+.word-breakdown-block.suffix {
+  background: rgba(52,211,153,0.12);
+  border: 1px solid rgba(52,211,153,0.25);
+}
+
+.word-breakdown-block.stem {
+  background: rgba(167,139,250,0.1);
+  border: 1px solid rgba(167,139,250,0.2);
+}
+
+.word-breakdown-block.link {
+  background: rgba(255,255,255,0.04);
+  border: 1px dashed rgba(255,255,255,0.1);
+  padding: 10px 8px;
+  min-width: auto;
+}
+
+.word-breakdown-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+.word-breakdown-label {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.word-breakdown-plus {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin: 0 2px;
+}
+
+.word-breakdown-formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.82rem;
+}
+
+.formula-part {
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  font-weight: 600;
+}
+
+.formula-part.prefix { background: rgba(96,165,250,0.1); color: var(--sky); }
+.formula-part.root { background: rgba(240,165,0,0.1); color: var(--amber); }
+.formula-part.suffix { background: rgba(52,211,153,0.1); color: var(--emerald); }
+.formula-part.stem { background: rgba(167,139,250,0.08); color: rgb(167,139,250); }
+
+.formula-arrow {
+  color: var(--text-dim);
+  font-weight: 300;
+}
+
+.formula-result {
+  font-weight: 700;
+  color: var(--text-primary);
+  padding: 3px 10px;
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--r-full);
+}
+
+/* ========== 柯林斯风格释义 ========== */
+.word-collins {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.collins-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.02);
+  border-radius: var(--r-sm);
+}
+
+.collins-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-full);
+  background: var(--amber-dim);
+  color: var(--amber);
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.collins-pos {
+  color: var(--sky);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.collins-def {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* ========== 词频等级可视化 ========== */
+.word-freq-visual {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.word-freq-bars {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+}
+
+.freq-bar {
+  width: 8px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.06);
+  transition: background 0.3s;
+}
+
+.freq-bar:nth-child(1) { height: 10px; }
+.freq-bar:nth-child(2) { height: 14px; }
+.freq-bar:nth-child(3) { height: 18px; }
+.freq-bar:nth-child(4) { height: 22px; }
+.freq-bar:nth-child(5) { height: 26px; }
+
+.word-freq-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.word-freq-tip {
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ========== 派生词词性标记 ========== */
+.derive-pos {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-left: 2px;
+  opacity: 0.8;
+}
+
+/* ========== 词组搭配 ========== */
+.word-collocations {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.word-collocation-item {
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-sm);
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.word-collocation-item strong {
+  color: var(--amber);
+  font-weight: 700;
+}
+
+.word-collocation-item .phrase-en {
+  display: inline;
+}
+.word-collocation-item .phrase-cn {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ========== 例句发音按钮 ========== */
+.example-speak-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.example-speak-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-secondary);
+  padding: 5px 14px;
+  border-radius: var(--r-full);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.example-speak-btn:hover {
+  background: var(--sky-dim, rgba(96,165,250,0.15));
+  color: var(--sky);
+  border-color: rgba(96,165,250,0.3);
+}

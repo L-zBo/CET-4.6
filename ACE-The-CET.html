@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080c18">
+  <title>Ace-The-CET - CET英语学习</title>
+  <link rel="icon" type="image/x-icon" href="logo/favicon.ico">
+  <link rel="shortcut icon" href="logo/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Noto+Serif+SC:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/vocab/practice.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">跳到主要内容</a>
+  <!-- ===== Background Image Layer ===== -->
+  <div id="bg-layer" class="bg-layer">
+    <img class="bg-img active" id="bg-img-1" src="" alt="" width="1920" height="1080" />
+    <img class="bg-img" id="bg-img-2" src="" alt="" width="1920" height="1080" />
+    <div class="bg-overlay" id="bg-overlay"></div>
+  </div>
+
+  <!-- ===== Landing Page (Level Selection) ===== -->
+  <div id="landing-page" class="landing">
+    <div class="landing-content">
+      <div class="landing-brand" data-anim="1">
+        <div class="landing-logo">
+          <span class="landing-logo-char">Bo</span>
+        </div>
+        <h1 class="landing-title">Ace-The-CET</h1>
+        <p class="landing-tagline">科学记忆 · 高效备考 · 掌握核心词汇</p>
+      </div>
+      <div class="landing-cards" data-anim="2">
+        <button type="button" class="level-card cet4-card" onclick="App.selectLevel('cet4')">
+          <div class="level-card-inner">
+            <div class="level-badge cet4-badge">CET-4</div>
+            <h2 class="level-name">四级词汇</h2>
+            <p class="level-desc">大学英语四级核心词汇，夯实基础</p>
+            <div class="level-info">
+              <div class="level-info-item">
+                <span class="level-info-num">~4800</span>
+                <span class="level-info-label">词汇量</span>
+              </div>
+              <div class="level-info-divider"></div>
+              <div class="level-info-item">
+                <span class="level-info-num">基础</span>
+                <span class="level-info-label">难度</span>
+              </div>
+            </div>
+            <div class="level-enter-btn">
+              <span>开始学习</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
+        </button>
+        <button type="button" class="level-card cet6-card" onclick="App.selectLevel('cet6')">
+          <div class="level-card-inner">
+            <div class="level-badge cet6-badge">CET-6</div>
+            <h2 class="level-name">六级词汇</h2>
+            <p class="level-desc">大学英语六级全部词汇，进阶冲刺</p>
+            <div class="level-info">
+              <div class="level-info-item">
+                <span class="level-info-num">~6000</span>
+                <span class="level-info-label">词汇量</span>
+              </div>
+              <div class="level-info-divider"></div>
+              <div class="level-info-item">
+                <span class="level-info-num">进阶</span>
+                <span class="level-info-label">难度</span>
+              </div>
+            </div>
+            <div class="level-enter-btn">
+              <span>开始学习</span>
+              <span class="arrow">→</span>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div class="landing-tools" data-anim="3">
+        <p class="landing-tools-tagline">精准表达 · 地道翻译 · 突破写译高分</p>
+        <div class="landing-tools-cards">
+          <button type="button" class="level-card trans-card" onclick="App.openTool('translation')">
+            <div class="level-card-inner">
+              <div class="level-badge trans-badge">翻译</div>
+              <h2 class="level-name">翻译热词</h2>
+              <p class="level-desc">多主题分类、四六级翻译高频词汇速记</p>
+              <div class="level-info">
+                <div class="level-info-item">
+                  <span class="level-info-num">多主题</span>
+                  <span class="level-info-label">分类</span>
+                </div>
+                <div class="level-info-divider"></div>
+                <div class="level-info-item">
+                  <span class="level-info-num">每日推送</span>
+                  <span class="level-info-label">精选</span>
+                </div>
+              </div>
+              <div class="level-enter-btn trans-enter-btn">
+                <span>开始学习</span>
+                <span class="arrow">→</span>
+              </div>
+            </div>
+          </button>
+          <button type="button" class="level-card writing-card" onclick="App.openTool('writing')">
+            <div class="level-card-inner">
+              <div class="level-badge writing-badge">写作</div>
+              <h2 class="level-name">写作模板</h2>
+              <p class="level-desc">万能模板 + 高分句型 + 常用谚语速查</p>
+              <div class="level-info">
+                <div class="level-info-item">
+                  <span class="level-info-num">模板</span>
+                  <span class="level-info-label">多类型</span>
+                </div>
+                <div class="level-info-divider"></div>
+                <div class="level-info-item">
+                  <span class="level-info-num">每日推送</span>
+                  <span class="level-info-label">精选</span>
+                </div>
+              </div>
+              <div class="level-enter-btn writing-enter-btn">
+                <span>开始学习</span>
+                <span class="arrow">→</span>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Tool Pages (Translation / Writing) ===== -->
+  <div id="tool-translation" class="tool-page" style="display:none">
+    <div class="tool-page-inner">
+      <header class="tool-header">
+        <button class="btn btn-sm btn-ghost tool-back-btn" onclick="App.closeTool()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          返回
+        </button>
+        <div class="tool-header-title">
+          <div class="section-icon emerald"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg></div>
+          <h2>翻译热词</h2>
+        </div>
+        <button class="btn btn-sm btn-ghost tool-weather-btn" onclick="App.toggleToolWeatherPanel(this)" title="天气与背景设置" aria-label="天气与背景设置">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </header>
+      <div id="translation-tabs"></div>
+      <div id="translation-content"></div>
+    </div>
+  </div>
+
+  <div id="tool-writing" class="tool-page" style="display:none">
+    <div class="tool-page-inner">
+      <header class="tool-header">
+        <button class="btn btn-sm btn-ghost tool-back-btn" onclick="App.closeTool()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          返回
+        </button>
+        <div class="tool-header-title">
+          <div class="section-icon violet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+          <h2>写作模板</h2>
+        </div>
+        <button class="btn btn-sm btn-ghost tool-weather-btn" onclick="App.toggleToolWeatherPanel(this)" title="天气与背景设置" aria-label="天气与背景设置">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </header>
+      <div id="writing-tabs"></div>
+      <div id="writing-content"></div>
+    </div>
+  </div>
+
+  <!-- ===== Offline Banner ===== -->
+  <div id="offline-banner" class="offline-banner" style="display:none" role="alert" aria-live="assertive">
+    <svg class="offline-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 C2 6.48 6.48 2 12 2s10 4.48 10 10"/><circle cx="12" cy="12" r="3"/><path d="m2 2 20 20"/></svg>
+    <span class="offline-text">当前处于离线模式，天气等在线功能暂不可用</span>
+  </div>
+
+  <div class="app-container" id="app-container" style="display:none">
+    <!-- ===== Header ===== -->
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <div class="logo-icon" id="logo-icon">C6</div>
+          <span class="logo-text" id="logo-text">Ace-The-CET</span>
+          <button class="level-switch-btn" id="level-switch-btn" onclick="App.switchLevel()" title="切换等级" aria-label="切换学习等级">切换</button>
+        </div>
+        <nav class="nav">
+          <button class="nav-btn active" data-page="dashboard"><svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> 首页</button>
+          <button class="nav-btn" data-page="browse"><svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 词库</button>
+          <button class="nav-btn" data-page="flashcard"><svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 闪卡</button>
+          <button class="nav-btn" data-page="quiz"><svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> 测验</button>
+          <button class="nav-btn" data-page="spelling"><svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg> 拼写</button>
+          <button class="nav-btn" data-page="notebook"><svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> 错题本</button>
+          <button class="nav-btn" data-page="review"><svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> 复习<span class="badge" id="review-badge" style="display:none"></span></button>
+          <button class="nav-btn" data-page="settings"><svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> 设置</button>
+        </nav>
+        <div id="auth-user-area" style="display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0"></div>
+      </div>
+    </header>
+
+    <main id="main-content">
+    <!-- ===== Dashboard ===== -->
+    <div id="page-dashboard" class="page active">
+      <!-- Hero greeting -->
+      <div class="dash-hero">
+        <div class="dash-hero-content">
+          <div class="dash-greeting-row">
+            <span class="dash-time-icon" id="dash-time-icon"></span>
+            <div class="dash-greeting" id="dash-greeting">今天也要加油背单词</div>
+          </div>
+          <div class="dash-sub" id="dash-sub">坚持每天学习，六级不是梦</div>
+          <div class="dash-weather" id="dash-weather"></div>
+          <div class="dash-review-prompt" id="dash-review-prompt"></div>
+        </div>
+      </div>
+
+      <!-- Daily goal -->
+      <div class="daily-goal-bar" id="daily-goal-bar">
+        <div class="daily-goal-info">
+          <span>今日目标：<strong id="daily-goal-current">0</strong> / <strong id="daily-goal-target">30</strong> 词</span>
+          <span class="daily-goal-pct" id="daily-goal-pct">0%</span>
+        </div>
+        <div class="progress-track" style="height:8px">
+          <div class="progress-fill" id="daily-goal-fill" style="width:0%;background:var(--emerald)"></div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <button type="button" class="stat-card amber clickable" onclick="App.browseTo('all')" title="查看全部词汇">
+          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <div class="stat-number" id="stat-total">0</div>
+          <div class="stat-label">总词汇</div>
+        </button>
+        <button type="button" class="stat-card emerald clickable" onclick="App.browseTo('mastered')" title="查看已掌握词汇">
+          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div class="stat-number" id="stat-mastered">0</div>
+          <div class="stat-label">已掌握</div>
+        </button>
+        <button type="button" class="stat-card sky clickable" onclick="App.browseTo('learning')" title="查看学习中词汇">
+          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="stat-number" id="stat-learning">0</div>
+          <div class="stat-label">学习中</div>
+        </button>
+        <button type="button" class="stat-card coral clickable" onclick="App.browseTo('new')" title="查看未学习词汇">
+          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+          <div class="stat-number" id="stat-new">0</div>
+          <div class="stat-label">未学习</div>
+        </button>
+        <button type="button" class="stat-card violet clickable" onclick="App.browseTo('today')" title="查看今日已学词汇">
+          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
+          <div class="stat-number" id="stat-today">0</div>
+          <div class="stat-label">今日已学</div>
+        </button>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-section">
+        <h3>掌握进度</h3>
+        <div class="progress-meta">
+          <span id="progress-label">0 / 0 已掌握</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-bar" style="width:3%"></div>
+        </div>
+      </div>
+
+      <!-- Streak calendar -->
+      <div class="streak-section">
+        <div class="streak-header">
+          <h3>打卡记录</h3>
+          <div class="streak-fire" id="streak-info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> 连续 0 天</div>
+        </div>
+        <div class="streak-month-nav" id="streak-month-nav">
+          <button class="streak-nav-btn" id="streak-prev-month" title="上个月" aria-label="查看上个月打卡记录">‹</button>
+          <span class="streak-month-label" id="streak-month-label">2026年2月</span>
+          <button class="streak-nav-btn" id="streak-next-month" title="下个月" aria-label="查看下个月打卡记录">›</button>
+        </div>
+        <div class="streak-weekday-header">
+          <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+        </div>
+        <div class="streak-calendar-grid" id="streak-calendar"></div>
+        <div class="streak-stats-row" id="streak-stats-row"></div>
+      </div>
+
+      <!-- Quick actions -->
+      <div class="quick-grid">
+        <button type="button" class="quick-card" onclick="App.goToPage('flashcard')">
+          <div class="quick-card-icon amber"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <div class="quick-card-text">
+            <h4>闪卡练习</h4>
+            <p>翻转卡片记单词</p>
+          </div>
+        </button>
+        <button type="button" class="quick-card" onclick="App.goToPage('quiz')">
+          <div class="quick-card-icon emerald"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="quick-card-text">
+            <h4>测验模式</h4>
+            <p>四选一检验成果</p>
+          </div>
+        </button>
+        <button type="button" class="quick-card" onclick="App.startReviewSession()">
+          <div class="quick-card-icon coral"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+          <div class="quick-card-text">
+            <h4>今日复习</h4>
+            <p id="quick-review-count">记忆曲线智能推荐</p>
+          </div>
+        </button>
+        <button type="button" class="quick-card" onclick="App.goToPage('notebook')">
+          <div class="quick-card-icon sky"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="quick-card-text">
+            <h4>错题本</h4>
+            <p>专攻易错词汇</p>
+          </div>
+        </button>
+        <button type="button" class="quick-card" onclick="App.goToPage('spelling')">
+          <div class="quick-card-icon violet"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg></div>
+          <div class="quick-card-text">
+            <h4>拼写练习</h4>
+            <p>手动拼写加深记忆</p>
+          </div>
+        </button>
+      </div>
+
+      <!-- 今日各模块练习次数 -->
+      <div id="dashboard-module-summary"></div>
+    </div>
+
+    <!-- ===== Browse ===== -->
+    <div id="page-browse" class="page">
+      <div class="section-header">
+        <div class="section-title">
+          <div class="section-icon amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <h2>词库浏览</h2>
+        </div>
+        <div class="word-count-bar" id="word-count">共 0 个单词</div>
+      </div>
+
+      <div class="browse-toolbar">
+        <div class="search-box">
+          <input type="text" id="search-input" name="search" placeholder="搜索单词或释义…" aria-label="搜索单词或释义" autocomplete="off" spellcheck="false">
+        </div>
+        <select class="filter-select" id="filter-status" aria-label="按学习状态筛选">
+          <option value="all">全部状态</option>
+          <option value="today">今日已学</option>
+          <option value="new">未学习</option>
+          <option value="learning">学习中</option>
+          <option value="mastered">已掌握</option>
+        </select>
+        <select class="filter-select" id="filter-freq" aria-label="按词频筛选">
+          <option value="all">全部频率</option>
+          <option value="high">高频词</option>
+          <option value="mid">中频词</option>
+          <option value="low">低频词</option>
+        </select>
+        <select class="filter-select" id="filter-letter" aria-label="按首字母筛选">
+          <option value="all">全部字母</option>
+        </select>
+      </div>
+
+      <div class="word-list" id="word-list"></div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+
+    <!-- ===== Flashcard ===== -->
+    <div id="page-flashcard" class="page">
+      <div class="section-header">
+        <div class="section-title">
+          <button class="btn btn-sm btn-ghost back-btn" onclick="App.goToPage('dashboard')">← 首页</button>
+          <div class="section-icon amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <h2>闪卡练习</h2>
+        </div>
+      </div>
+
+      <div class="flashcard-toolbar">
+        <select class="filter-select" id="flashcard-mode" aria-label="选择学习范围">
+          <option value="daily">每日计划</option>
+          <option value="high">高频词</option>
+          <option value="random">随机50个</option>
+        </select>
+      </div>
+      <div id="flashcard-resume-panel" class="session-resume-panel" style="display:none"></div>
+
+      <div class="flashcard-counter">
+        <span id="flashcard-index">0</span> / <span id="flashcard-total">0</span>
+      </div>
+
+      <div class="flashcard-stage">
+        <div class="flashcard" id="flashcard" role="button" tabindex="0" onclick="App.flipCard()">
+          <div class="flashcard-face flashcard-front">
+            <div class="fc-word" id="fc-word">-</div>
+            <div class="fc-phonetic" id="fc-phonetic">-</div>
+            <div class="fc-speak-row">
+              <button class="speak-btn speak-btn-accent" onclick="event.stopPropagation();App.speak(document.getElementById('fc-word').textContent,'us')" title="美式发音" aria-label="播放美式发音">🇺🇸 美式</button>
+              <button class="speak-btn speak-btn-accent" onclick="event.stopPropagation();App.speak(document.getElementById('fc-word').textContent,'uk')" title="英式发音" aria-label="播放英式发音">🇬🇧 英式</button>
+            </div>
+            <div class="fc-freq-tag" id="fc-freq-tag"></div>
+            <div class="fc-hint">点击翻转查看释义 | 空格翻转 A/D或←→切换 S发音 E认识 Q不认识</div>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <div class="fc-meaning" id="fc-meaning">-</div>
+            <div class="fc-example" id="fc-example">-</div>
+            <div class="fc-extra" id="fc-extra"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard-actions">
+        <button class="btn btn-coral" onclick="App.markWord('unfamiliar')">不认识</button>
+        <button class="btn btn-ghost" onclick="App.prevCard()">上一个</button>
+        <button class="btn btn-ghost" onclick="App.nextCard()">下一个</button>
+        <button class="btn btn-emerald" onclick="App.markWord('familiar')">认识</button>
+      </div>
+      <div id="flashcard-footer-counter" class="module-footer-slot"></div>
+    </div>
+
+    <!-- ===== Quiz ===== -->
+    <div id="page-quiz" class="page">
+      <div class="section-header">
+        <div class="section-title">
+          <button class="btn btn-sm btn-ghost back-btn" onclick="App.goToPage('dashboard')">← 首页</button>
+          <div class="section-icon emerald"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <h2>测验模式</h2>
+        </div>
+      </div>
+
+      <!-- Setup -->
+      <div id="quiz-setup" class="quiz-setup">
+        <!-- 自定义设置 -->
+        <div class="quiz-setup-card">
+          <h4 style="margin:0 0 12px;color:var(--text-secondary);font-size:0.9rem">自定义测验</h4>
+          <div class="quiz-option-group">
+            <label for="quiz-count">题目数量</label>
+            <select id="quiz-count">
+              <option value="10">10 题</option>
+              <option value="20" selected>20 题</option>
+              <option value="30">30 题</option>
+              <option value="50">50 题</option>
+            </select>
+          </div>
+          <div class="quiz-option-group">
+            <label for="quiz-type">题目类型</label>
+            <select id="quiz-type">
+              <option value="en2cn">英译中</option>
+              <option value="cn2en">中译英</option>
+              <option value="mixed">混合模式</option>
+            </select>
+          </div>
+          <div class="quiz-option-group">
+            <label for="quiz-range">词汇范围</label>
+            <select id="quiz-range">
+              <option value="daily">每日计划</option>
+              <option value="all">全部单词</option>
+              <option value="high">高频词</option>
+              <option value="new">未学习</option>
+              <option value="learning">学习中</option>
+              <option value="wrong">错题集</option>
+            </select>
+          </div>
+          <button id="quiz-start-btn" class="btn btn-glass btn-lg" style="width:100%" onclick="App.startQuiz()">开始测验</button>
+          <button id="quiz-resume-btn" class="btn btn-amber btn-lg" style="width:100%;margin-top:10px;display:none" onclick="App.resumeQuiz()">继续上次测验</button>
+        </div>
+      </div>
+
+      <!-- Quiz area -->
+      <div id="quiz-area" class="quiz-area" style="display:none">
+        <div class="quiz-header-bar">
+          <button class="btn btn-sm btn-ghost back-btn" onclick="App.backToQuizSetup()">← 返回</button>
+          <span>第 <strong id="quiz-current">1</strong> / <span id="quiz-total">20</span> 题</span>
+          <span class="score-badges">
+            <span class="score-badge score-badge-correct"><span class="score-badge-icon">✓</span><span id="quiz-correct">0</span></span>
+            <span class="score-badge score-badge-wrong"><span class="score-badge-icon">✗</span><span id="quiz-wrong">0</span></span>
+          </span>
+        </div>
+        <div class="quiz-question-card">
+          <div class="question-type" id="quiz-type-label">英译中</div>
+          <div class="question-text" id="quiz-question">-</div>
+        </div>
+        <div class="quiz-choices" id="quiz-choices"></div>
+        <div id="quiz-memory-tip" class="practice-memory-tip" style="display:none"></div>
+        <button class="btn btn-glass btn-lg" id="quiz-next-btn" style="display:none;width:100%;margin-top:16px" onclick="App.nextQuestion()">下一题</button>
+      </div>
+
+      <!-- Result -->
+      <div id="quiz-result" class="quiz-result" style="display:none">
+        <div class="result-card">
+          <div class="result-score" id="result-score">0</div>
+          <div class="result-msg" id="result-msg">继续加油！</div>
+          <div class="result-stats">
+            <div class="result-stat">
+              <div class="num" style="color:var(--emerald)" id="result-correct">0</div>
+              <div class="label">正确</div>
+            </div>
+            <div class="result-stat">
+              <div class="num" style="color:var(--coral)" id="result-wrong-count">0</div>
+              <div class="label">错误</div>
+            </div>
+            <div class="result-stat">
+              <div class="num" style="color:var(--amber)" id="result-accuracy">0%</div>
+              <div class="label">正确率</div>
+            </div>
+          </div>
+        </div>
+        <div class="wrong-review-list" id="result-details"></div>
+        <div style="display:flex;gap:12px;justify-content:center">
+          <button class="btn btn-glass" onclick="App.showQuizSetup()">再来一轮</button>
+          <button class="btn btn-coral" onclick="App.reviewWrongAnswers()">复习错题</button>
+          <button class="btn btn-ghost" onclick="App.goToPage('dashboard')">返回首页</button>
+        </div>
+      </div>
+      <div id="quiz-footer-counter" class="module-footer-slot"></div>
+    </div>
+
+    <!-- ===== Spelling (拼写模式 — 逐字母输入) ===== -->
+    <div id="page-spelling" class="page">
+      <div class="section-header">
+        <div class="section-title">
+          <button class="btn btn-sm btn-ghost back-btn" onclick="App.goToPage('dashboard')">← 首页</button>
+          <div class="section-icon violet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg></div>
+          <h2>拼写模式</h2>
+        </div>
+      </div>
+
+      <!-- Setup -->
+      <div id="spell-setup" class="quiz-setup">
+        <div class="quiz-setup-card">
+          <div class="quiz-option-group">
+            <label for="spell-count">题目数量</label>
+            <select id="spell-count">
+              <option value="10">10 题</option>
+              <option value="20" selected>20 题</option>
+              <option value="30">30 题</option>
+              <option value="50">50 题</option>
+            </select>
+          </div>
+          <div class="quiz-option-group">
+            <label for="spell-type">拼写方向</label>
+            <select id="spell-type">
+              <option value="cn2en">看中文拼英文</option>
+              <option value="en2cn">看英文写中文</option>
+            </select>
+          </div>
+          <div class="quiz-option-group">
+            <label for="spell-range">词汇范围</label>
+            <select id="spell-range">
+              <option value="daily">每日计划</option>
+              <option value="all">全部单词</option>
+              <option value="high">高频词</option>
+              <option value="learning">学习中</option>
+              <option value="wrong">错题集</option>
+            </select>
+          </div>
+          <button id="spell-start-btn" class="btn btn-glass btn-lg" style="width:100%" onclick="App.startSpelling()">开始拼写</button>
+          <button id="spell-resume-btn" class="btn btn-amber btn-lg" style="width:100%;margin-top:10px;display:none" onclick="App.resumeSpelling()">继续上次拼写</button>
+        </div>
+      </div>
+
+      <!-- Spelling area (逐字母输入) -->
+      <div id="spell-area" style="display:none">
+        <div class="quiz-header-bar">
+          <button class="btn btn-sm btn-ghost back-btn" onclick="App.backToSpellSetup()">← 返回</button>
+          <span>第 <strong id="spell-current-num">1</strong> / <span id="spell-total-num">20</span> 题</span>
+          <span class="score-badges">
+            <span class="score-badge score-badge-correct"><span class="score-badge-icon">✓</span><span id="spell-correct">0</span></span>
+            <span class="score-badge score-badge-wrong"><span class="score-badge-icon">✗</span><span id="spell-wrong">0</span></span>
+          </span>
+        </div>
+
+        <!-- 单词卡片 -->
+        <div class="spell-card" id="spell-card">
+          <div class="spell-card-meaning" id="spell-meaning">释义</div>
+          <div class="spell-card-phonetic" id="spell-phonetic">/fəˈnetɪk/</div>
+          <div class="spell-card-example" id="spell-example">例句</div>
+          <div class="practice-memory-tip spell-memory-tip" id="spell-memory-tip" style="display:none"></div>
+          <button class="speak-btn spell-speak-btn" onclick="App.speakCurrentSpell()" title="播放发音" aria-label="播放当前单词发音"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
+        </div>
+
+        <!-- 字母输入框区域 -->
+        <div class="spell-letter-boxes" id="spell-letter-boxes">
+          <!-- JS 动态生成 -->
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="spell-actions">
+          <button class="btn btn-sky" id="spell-hint-btn" onclick="App.showSpellLetterHint()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg> 提示</button>
+          <button class="btn btn-ghost" id="spell-skip-btn" onclick="App.skipSpellWord()">跳过 →</button>
+        </div>
+        <div class="spell-actions" id="spell-next-word-actions" style="display:none">
+          <button class="btn btn-amber btn-lg" onclick="App.nextSpellWord()">下一个 →</button>
+        </div>
+      </div>
+
+      <!-- Spelling result -->
+      <div id="spell-result" style="display:none">
+        <div class="result-card">
+          <div class="result-score" id="spell-score">0</div>
+          <div class="result-msg" id="spell-msg">继续加油！</div>
+          <div class="result-stats">
+            <div class="result-stat">
+              <div class="num" style="color:var(--emerald)" id="spell-r-correct">0</div>
+              <div class="label">正确</div>
+            </div>
+            <div class="result-stat">
+              <div class="num" style="color:var(--coral)" id="spell-r-wrong">0</div>
+              <div class="label">错误</div>
+            </div>
+            <div class="result-stat">
+              <div class="num" style="color:var(--amber)" id="spell-r-accuracy">0%</div>
+              <div class="label">正确率</div>
+            </div>
+          </div>
+        </div>
+        <div class="wrong-review-list" id="spell-r-details"></div>
+        <div style="display:flex;gap:12px;justify-content:center">
+          <button class="btn btn-glass" onclick="App.showSpellSetup()">再来一轮</button>
+          <button class="btn btn-ghost" onclick="App.goToPage('dashboard')">返回首页</button>
+        </div>
+      </div>
+      <div id="spelling-footer-counter" class="module-footer-slot"></div>
+    </div>
+
+    <!-- ===== Notebook (错题本) ===== -->
+    <div id="page-notebook" class="page">
+      <div class="section-header">
+        <div class="section-title">
+          <div class="section-icon coral"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <h2>错题本</h2>
+        </div>
+        <div>
+          <button class="btn btn-sm btn-coral" onclick="App.practiceWrongWords()">练习全部错题</button>
+          <button class="btn btn-sm btn-ghost" onclick="App.clearNotebook()">清空错题本</button>
+        </div>
+      </div>
+      <div id="notebook-content"></div>
+    </div>
+
+    <!-- ===== Review (记忆曲线复习) ===== -->
+    <div id="page-review" class="page">
+      <div class="section-header">
+        <div class="section-title">
+          <button class="btn btn-sm btn-ghost back-btn" onclick="App.goToPage('dashboard')">← 首页</button>
+          <div class="section-icon sky"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+          <h2>记忆曲线复习</h2>
+        </div>
+      </div>
+
+      <div class="review-dashboard" id="review-dashboard">
+        <div class="review-card">
+          <h4>今日待复习</h4>
+          <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:12px">基于艾宾浩斯遗忘曲线计算</p>
+          <div class="stat-number" style="color:var(--coral);margin-bottom:12px" id="review-due-count">0</div>
+          <button class="btn btn-glass btn-lg" style="width:100%" onclick="App.startReviewSession()" id="review-start-btn">开始复习</button>
+          <button id="review-resume-btn" class="btn btn-amber btn-lg" style="width:100%;margin-top:10px;display:none" onclick="App.resumeReviewSession()">继续上次复习</button>
+        </div>
+        <div class="review-card">
+          <h4>复习安排</h4>
+          <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:12px">学习后 1天、2天、4天、7天、15天、30天 复习</p>
+          <div class="review-queue-list" id="review-queue-list"></div>
+        </div>
+      </div>
+
+      <!-- 记忆曲线可视化 -->
+      <div class="review-card" style="margin-bottom:24px" id="memory-curve-section">
+        <h4 style="margin-bottom:4px">学习趋势</h4>
+        <p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:16px">最近30天每日学习量变化</p>
+        <div id="memory-curve-chart" style="position:relative;height:200px;width:100%"></div>
+      </div>
+
+      <!-- Review flashcard (reuses flashcard UI) -->
+      <div id="review-session" style="display:none">
+        <div class="flashcard-counter">
+          <button class="btn btn-sm btn-ghost back-btn" onclick="App.backToReviewDashboard()">← 返回</button>
+          复习进度：<span id="review-index">0</span> / <span id="review-total">0</span>
+        </div>
+        <div class="flashcard-stage">
+          <div class="flashcard" id="review-card" role="button" tabindex="0" onclick="App.flipReviewCard()">
+            <div class="flashcard-face flashcard-front">
+              <div class="fc-word" id="rv-word">-</div>
+              <div class="fc-phonetic" id="rv-phonetic">-</div>
+              <button class="speak-btn" onclick="event.stopPropagation();App.speak(document.getElementById('rv-word').textContent)" title="播放发音" aria-label="播放当前单词发音">&#128266;</button>
+              <div class="fc-hint">空格翻转 | 1忘记 2模糊 3记住 | S发音</div>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <div class="fc-meaning" id="rv-meaning">-</div>
+              <div class="fc-example" id="rv-example">-</div>
+              <div class="fc-extra" id="rv-extra"></div>
+            </div>
+          </div>
+        </div>
+        <div class="flashcard-actions">
+          <button class="btn btn-coral" onclick="App.reviewMark('forgot')">忘记了</button>
+          <button class="btn btn-amber" onclick="App.reviewMark('hard')">模糊</button>
+          <button class="btn btn-emerald" onclick="App.reviewMark('easy')">记住了</button>
+        </div>
+      </div>
+      <div id="review-footer-counter" class="module-footer-slot"></div>
+    </div>
+
+    <!-- ===== Settings / Data ===== -->
+    <div id="page-settings" class="page">
+      <div class="section-header">
+        <div class="section-title">
+          <div class="section-icon violet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+          <h2>数据管理</h2>
+        </div>
+      </div>
+
+      <div class="settings-grid">
+        <div class="settings-card">
+          <h3>导出数据</h3>
+          <p class="desc">将学习进度导出为 JSON 文件，可在其他设备导入恢复。支持跨设备同步。</p>
+          <button class="btn btn-amber" onclick="App.exportData()">导出进度数据</button>
+        </div>
+
+        <div class="settings-card">
+          <h3>导入数据</h3>
+          <p class="desc">从之前导出的 JSON 文件恢复学习进度，智能合并不会覆盖更好的成绩。</p>
+          <input type="file" id="import-file" accept=".json" style="display:none" onchange="App.importData(event)" aria-label="选择要导入的JSON文件">
+          <button class="btn btn-sky" onclick="document.getElementById('import-file').click()">导入进度数据</button>
+        </div>
+
+        <div class="settings-card">
+          <h3>学习设置</h3>
+          <p class="desc">自定义你的学习体验</p>
+          <div class="setting-row" style="margin-bottom:12px">
+            <label for="setting-pagesize">每页显示单词数</label>
+            <select class="filter-select" id="setting-pagesize">
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="50" selected>50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+          <div class="setting-row" style="margin-bottom:12px">
+            <label for="setting-dailygoal">每日学习目标</label>
+            <select class="filter-select" id="setting-dailygoal">
+              <option value="10">10 词/天</option>
+              <option value="20">20 词/天</option>
+              <option value="30" selected>30 词/天</option>
+              <option value="50">50 词/天</option>
+              <option value="80">80 词/天</option>
+              <option value="100">100 词/天</option>
+            </select>
+          </div>
+          <div class="setting-row" style="margin-bottom:12px">
+            <label id="accent-label">发音口音</label>
+            <div class="accent-toggle" id="accent-toggle" role="group" aria-labelledby="accent-label">
+              <button class="accent-btn active" onclick="App.setAccent('us');this.parentElement.querySelectorAll('.accent-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">🇺🇸 美式</button>
+              <button class="accent-btn" onclick="App.setAccent('uk');this.parentElement.querySelectorAll('.accent-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">🇬🇧 英式</button>
+            </div>
+          </div>
+          <button class="btn btn-emerald btn-sm" onclick="App.saveSettings()">保存设置</button>
+        </div>
+
+        <div class="settings-card">
+          <h3>天气与背景设置</h3>
+          <p class="desc">控制天气联动功能和视觉效果。「天气与动态背景」控制是否获取实时天气数据并按天气类型切换背景图；「天气动效」控制雨滴、雪花等粒子动画效果。</p>
+          <div class="setting-row" style="margin-bottom:12px">
+            <label id="weather-label">天气与动态背景</label>
+            <div class="accent-toggle" id="weather-toggle" role="group" aria-labelledby="weather-label">
+              <button class="accent-btn" id="weather-on-btn" onclick="App.setWeatherPerm('granted')">开启</button>
+              <button class="accent-btn" id="weather-off-btn" onclick="App.setWeatherPerm('denied')">关闭</button>
+            </div>
+          </div>
+          <div class="setting-row" style="margin-bottom:12px">
+            <label id="effect-scope-label">天气动效（雨雪粒子）</label>
+            <div class="accent-toggle" id="effect-scope-toggle" role="group" aria-labelledby="effect-scope-label">
+              <button class="accent-btn" id="effect-scope-limit-btn" onclick="App.setEffectScope('on')">开启</button>
+              <button class="accent-btn" id="effect-scope-all-btn" onclick="App.setEffectScope('off')">关闭</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3>主题外观</h3>
+          <p class="desc">4 套配色，切换即时生效。挑一个最不刺眼的当主战场。</p>
+          <div class="theme-picker" role="group" aria-label="选择主题">
+            <button class="theme-btn" data-theme="default" onclick="App.setTheme('default')" title="深邃宇宙感，原始主题">
+              <span class="theme-swatch" style="background:linear-gradient(135deg,#080c18 0%,#f0a500 100%)"></span>
+              <span class="theme-name">Deep Space</span>
+              <span class="theme-tag">默认</span>
+            </button>
+            <button class="theme-btn" data-theme="glacier" onclick="App.setTheme('glacier')" title="白天/清晨学习，眼睛友好">
+              <span class="theme-swatch" style="background:linear-gradient(135deg,#eef2f7 0%,#d97706 100%)"></span>
+              <span class="theme-name">Glacier Mist</span>
+              <span class="theme-tag">浅色</span>
+            </button>
+            <button class="theme-btn" data-theme="ocean" onclick="App.setTheme('ocean')" title="沉静专注，长时间学习">
+              <span class="theme-swatch" style="background:linear-gradient(135deg,#0a1929 0%,#0d9488 100%)"></span>
+              <span class="theme-name">Ocean Depths</span>
+              <span class="theme-tag">深蓝</span>
+            </button>
+            <button class="theme-btn" data-theme="sunset" onclick="App.setTheme('sunset')" title="傍晚/暖色调，提振情绪">
+              <span class="theme-swatch" style="background:linear-gradient(135deg,#1c1410 0%,#f43f5e 100%)"></span>
+              <span class="theme-name">Sunset Blvd</span>
+              <span class="theme-tag">暖橙</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3>切换等级</h3>
+          <p class="desc">当前等级：<strong id="settings-current-level">CET-6</strong>。切换后将加载对应词库，各等级进度独立保存。</p>
+          <button class="btn btn-sky" onclick="App.switchLevel()">切换到其他等级</button>
+        </div>
+
+        <div class="settings-card danger-zone">
+          <h3>重置数据</h3>
+          <p class="desc">清除所有本地学习数据，此操作不可撤销！建议先导出备份。</p>
+          <button class="btn btn-coral" onclick="App.resetData()">重置所有数据</button>
+        </div>
+      </div>
+    </div>
+    </main>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Scripts -->
+  <script>
+    // Fallback if cet6_only.js doesn't exist
+    window.CET6_ONLY = window.CET6_ONLY || new Set();
+  </script>
+  <script src="js/vocab/cet6_only.js" onerror=""></script>
+  <script src="js/vocab/vocabulary.js"></script>
+  <script src="js/vocab/word-extras.js" onerror=""></script>
+  <script src="js/vocab/word-mnemonics.js" onerror=""></script>
+  <script src="js/vocab/high_freq.js" onerror=""></script>
+  <script src="js/core.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/lib/lottie_light.min.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/weather_manual_loc.js"></script>
+  <script src="js/dashboard_greetings.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/vocab/browse.js"></script>
+  <script src="js/vocab/flashcard.js"></script>
+  <script src="js/vocab/quiz.js"></script>
+  <script src="js/vocab/spelling.js"></script>
+  <script src="js/vocab/review.js"></script>
+  <script src="js/vocab/word-relations.js"></script>
+  <script src="js/vocab/word-detail.js"></script>
+  <script src="js/vocab/practice.js"></script>
+  <script src="js/translation/translation_data.js"></script>
+  <script src="js/writing/writing_data.js"></script>
+  <script src="js/translation/translation.js"></script>
+  <script src="js/writing/writing.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
