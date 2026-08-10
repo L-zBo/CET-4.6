@@ -864,6 +864,9 @@
     { file: 'lobster',   motion: 'crawl' },
     { file: 'frog',      motion: 'float' },
     { file: 'octopus',   motion: 'float' },
+    { file: 'penguin',   motion: 'swim'  },
+    { file: 'otter',     motion: 'swim'  },
+    { file: 'seal',      motion: 'swim'  },
   ];
   // 晴天陆地动物：同源 Google Noto Animated Emoji（assets/lottie/*.json），
   // 走地面带 .sunny-ground 而非积水层；蝴蝶/鸟用 float 飘浮，其余贴地慢走。
@@ -878,6 +881,17 @@
     { file: 'chipmunk',  motion: 'crawl' },
     { file: 'butterfly', motion: 'float' },
     { file: 'bird',      motion: 'float' },
+    { file: 'hedgehog',  motion: 'crawl' },
+    { file: 'raccoon',   motion: 'crawl' },
+    { file: 'sloth',     motion: 'crawl' },
+    { file: 'lizard',    motion: 'crawl' },
+    { file: 'snail',     motion: 'crawl' },
+    { file: 'ladybug',   motion: 'crawl' },
+    { file: 'goat',      motion: 'crawl' },
+    { file: 'pig',       motion: 'crawl' },
+    { file: 'peacock',   motion: 'crawl' },
+    { file: 'owl',       motion: 'float' },
+    { file: 'eagle',     motion: 'float' },
   ];
   const SUNNY_ANIMAL_DELAY_MS = 12000;   // 晴天没有蓄积过程，进入后 12 秒放出动物
   let sunnyAnimalTimer = null;
@@ -959,10 +973,16 @@
   //   .water-animal-inner 跳跃 —— 点击时播 CSS animalHop / animalDart（装载 SVG/Lottie）
   // 渲染双路：USE_LOTTIE 且库就绪 → 本地 Lottie（Noto 动物）；否则回退手写 SVG。
   function spawnWaterAnimals(puddle, intensity, pool) {
-    const count = 2 + Math.floor(Math.random() * 2);   // 2-3 只
+    const count = 3 + Math.floor(Math.random() * 2);   // 3-4 只
     const ANIMALS = pool || LOTTIE_ANIMALS;            // 晴天传入陆地动物池，其余默认水生
     const useLottie = USE_LOTTIE && window.lottie && ANIMALS.length > 0;
     const svgTypes = Object.keys(SVG_WATER_CREATURES);
+    // 同一批不出现重复种类：洗牌后按序取，避免两只一模一样的并排出现
+    const bag = ANIMALS.slice();
+    for (let i = bag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bag[i], bag[j]] = [bag[j], bag[i]];
+    }
 
     for (let i = 0; i < count; i++) {
       const wrap = document.createElement('div');
@@ -976,7 +996,7 @@
       let lottiePick = null, motion = 'swim', palette = null;
       const svgFallbackType = svgTypes[Math.floor(Math.random() * svgTypes.length)];
       if (useLottie) {
-        lottiePick = ANIMALS[Math.floor(Math.random() * ANIMALS.length)];
+        lottiePick = bag[i % bag.length];
         motion = lottiePick.motion;
       } else {
         inner.innerHTML = SVG_WATER_CREATURES[svgFallbackType];
