@@ -117,8 +117,52 @@
       '按 CC-BY 2.0 FR 使用，仅做检索筛选与繁简转换，未作任何改写</div>');
   }
 
+  // ---------- C2. 词根 / 词缀拆解 ----------
+  // 取代原先 33.5% 的"释义联想：xxx = yyy"式伪助记（把释义重复一遍，等于没说）。
+  // 词根来自开源词根库的明确例词，词缀拆解要求剩余部分是带词频的真实单词，均不臆造。
+  function buildRootsHTML(entry) {
+    const r = entry.roots;
+    if (!r) return '';
+    let inner = '';
+
+    if (r.parts && r.parts.length) {
+      inner += r.parts.map(p => {
+        const mean = C.esc(p.en) + (p.zh ? '（' + C.esc(p.zh) + '）' : '');
+        const alt = (p.alt || []).length
+          ? '<span class="wb-root-alt">亦表 ' + C.esc(p.alt.join(' / ')) + '</span>' : '';
+        return '<div class="wb-root-part">' +
+          '<span class="wb-root-chip">' + C.esc(p.root) + '</span>' +
+          '<span class="wb-root-mean">' + mean + '</span>' + alt +
+        '</div>';
+      }).join('');
+    }
+
+    if (r.affix) {
+      const a = r.affix;
+      const chain = a.kind === 'prefix'
+        ? '<span class="wb-root-chip">' + C.esc(a.affix) + '-</span>' +
+          '<span class="wb-root-plus">+</span>' +
+          '<span class="wb-root-stem">' + C.esc(a.stem) + '</span>'
+        : '<span class="wb-root-stem">' + C.esc(a.stem) + '</span>' +
+          '<span class="wb-root-plus">+</span>' +
+          '<span class="wb-root-chip">-' + C.esc(a.affix) + '</span>';
+      inner += '<div class="wb-root-part">' + chain +
+        '<span class="wb-root-mean">' + C.esc(a.zh) + '</span></div>';
+    }
+
+    if (!inner) return '';
+
+    if (r.siblings && r.siblings.length) {
+      inner += '<div class="wb-root-sibs"><span class="wb-root-sibs-label">同根词</span>' +
+        r.siblings.map(s =>
+          '<span class="word-relation-tag" data-word="' + C.esc(s) + '">' + C.esc(s) + '</span>'
+        ).join('') + '</div>';
+    }
+
+    return section('🧬 词根词缀拆解', '<div class="wb-roots">' + inner + '</div>');
+  }
+
   // ---------- D. WordNet 英文同义词 ----------
-  // 补 kajweb 同近词未覆盖的部分：两者并集把同义词覆盖率从 59.2% 提到 82.4%，
   // 新补的大纲词几乎全靠这份数据。
   function buildWordNetSynHTML(entry) {
     const list = entry.wnsyn;
@@ -158,7 +202,7 @@
       if (!entry || !bodyDiv.isConnected) return;
 
       // 前置区（词形变化 + 词频考纲）插到弹窗最前，紧跟音标
-      const headHTML = buildExchangeHTML(entry) + buildRankHTML(entry);
+      const headHTML = buildExchangeHTML(entry) + buildRankHTML(entry) + buildRootsHTML(entry);
       if (headHTML) {
         const head = document.createElement('div');
         head.className = 'wb-head-group';

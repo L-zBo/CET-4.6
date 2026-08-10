@@ -40,107 +40,107 @@
  "shards": {
   "a": {
    "words": 637,
-   "bytes": 780892
+   "bytes": 816221
   },
   "b": {
    "words": 436,
-   "bytes": 585960
+   "bytes": 593547
   },
   "c": {
    "words": 907,
-   "bytes": 1226156
+   "bytes": 1272556
   },
   "d": {
    "words": 544,
-   "bytes": 674848
+   "bytes": 710331
   },
   "e": {
    "words": 439,
-   "bytes": 546191
+   "bytes": 573592
   },
   "f": {
    "words": 380,
-   "bytes": 519414
+   "bytes": 532662
   },
   "g": {
    "words": 223,
-   "bytes": 288185
+   "bytes": 293938
   },
   "h": {
    "words": 273,
-   "bytes": 352450
+   "bytes": 360418
   },
   "i": {
    "words": 408,
-   "bytes": 503109
+   "bytes": 535447
   },
   "j": {
    "words": 63,
-   "bytes": 78369
+   "bytes": 79913
   },
   "k": {
    "words": 44,
-   "bytes": 57908
+   "bytes": 58346
   },
   "l": {
    "words": 271,
-   "bytes": 368760
+   "bytes": 376659
   },
   "m": {
    "words": 401,
-   "bytes": 508787
+   "bytes": 527547
   },
   "n": {
    "words": 151,
-   "bytes": 179918
+   "bytes": 185721
   },
   "o": {
    "words": 210,
-   "bytes": 258104
+   "bytes": 267565
   },
   "p": {
    "words": 680,
-   "bytes": 924696
+   "bytes": 958831
   },
   "q": {
    "words": 45,
-   "bytes": 56796
+   "bytes": 58245
   },
   "r": {
    "words": 474,
-   "bytes": 622634
+   "bytes": 653003
   },
   "s": {
    "words": 895,
-   "bytes": 1136499
+   "bytes": 1169340
   },
   "t": {
    "words": 378,
-   "bytes": 472269
+   "bytes": 485788
   },
   "u": {
    "words": 122,
-   "bytes": 121532
+   "bytes": 130165
   },
   "v": {
    "words": 137,
-   "bytes": 162002
+   "bytes": 168736
   },
   "w": {
    "words": 204,
-   "bytes": 237261
+   "bytes": 239919
   },
   "x": {
    "words": 3,
-   "bytes": 3205
+   "bytes": 3292
   },
   "y": {
    "words": 23,
-   "bytes": 24598
+   "bytes": 24832
   },
   "z": {
    "words": 15,
-   "bytes": 13350
+   "bytes": 13661
   }
  }
 }

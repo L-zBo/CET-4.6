@@ -884,6 +884,72 @@
   color: var(--text-secondary);
 }
 
+/* --- 词根 / 词缀拆解 --- */
+.wb-roots {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wb-root-part {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg-subtle);
+  border-radius: var(--r-sm);
+}
+
+.wb-root-chip {
+  padding: 3px 12px;
+  background: var(--amber-dim);
+  border: 1px solid rgba(240, 165, 0, 0.32);
+  border-radius: var(--r-full);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: 0.02em;
+}
+
+.wb-root-stem {
+  padding: 3px 12px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-full);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.wb-root-plus {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+.wb-root-mean {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.wb-root-alt {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.wb-root-sibs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.wb-root-sibs-label {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-right: 2px;
+}
+
 /* --- WordNet 英文同义词 --- */
 .wb-syns {
   display: flex;
