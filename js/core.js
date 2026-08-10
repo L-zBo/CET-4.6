@@ -176,10 +176,15 @@ window._C = (() => {
     el.style.textShadow = '0 0 8px ' + color + '40, 0 0 2px ' + color + '60';
   }
 
+  // HTML 转义。
+  // 原实现用 div.textContent -> innerHTML，只会转义 & < >，**不转义引号**；
+  // 一旦把结果放进 HTML 属性（title="..." / alt="..." / data-word="..."）里，
+  // 值中的引号就会提前闭合属性造成注入。此前靠 USERNAME_RE 限制用户名字符侥幸没出事，
+  // 但任何新增的"用户可控且进属性"的字段都会踩雷，故显式转义 5 个字符。
+  // 顺带：正则替换比创建 DOM 节点快得多，且 null/undefined 统一转为空串而非字面量 "undefined"。
+  const ESC_MAP = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
   function esc(s) {
-    const d = document.createElement('div');
-    d.textContent = s;
-    return d.innerHTML;
+    return (s === null || s === undefined) ? '' : String(s).replace(/[&<>"']/g, c => ESC_MAP[c]);
   }
 
   // ========== 多词性 defs 兼容层 ==========
