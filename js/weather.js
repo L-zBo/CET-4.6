@@ -852,10 +852,7 @@
   // motion：swim 侧面横向游 / crawl 贴底慢爬 / float 原地小幅浮沉
   const LOTTIE_ANIMALS = [
     { file: 'fish',      motion: 'swim'  },
-    { file: 'fish1',     motion: 'swim'  },
-    { file: 'fish2',     motion: 'swim'  },
     { file: 'blowfish',  motion: 'swim'  },
-    { file: 'shark',     motion: 'swim'  },
     { file: 'dolphin',   motion: 'swim'  },
     { file: 'whale',     motion: 'swim'  },
     { file: 'crocodile', motion: 'swim'  },
@@ -883,7 +880,6 @@
     { file: 'bird',      motion: 'float' },
     { file: 'hedgehog',  motion: 'crawl' },
     { file: 'raccoon',   motion: 'crawl' },
-    { file: 'sloth',     motion: 'crawl' },
     { file: 'lizard',    motion: 'crawl' },
     { file: 'snail',     motion: 'crawl' },
     { file: 'ladybug',   motion: 'crawl' },
@@ -892,6 +888,7 @@
     { file: 'peacock',   motion: 'crawl' },
     { file: 'owl',       motion: 'float' },
     { file: 'eagle',     motion: 'float' },
+    { file: 'bat',       motion: 'float' },
   ];
   const SUNNY_ANIMAL_DELAY_MS = 12000;   // 晴天没有蓄积过程，进入后 12 秒放出动物
   let sunnyAnimalTimer = null;
