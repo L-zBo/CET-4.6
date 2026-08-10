@@ -11,14 +11,33 @@
   const SHARD_BASE = 'wordbank/';
   const shardCache = {};   // letter -> Promise<Object>
 
+  // word-detail.js 里若干同步函数直接查 window.WORD_EXTRAS（同根词/同近词/高频短语）。
+  // 这份数据原先由 3.23MB 的同步 <script> 提供，是首屏最大的一块；
+  // 现改为随分片按需下发，分片到达时回填到全局对象，那些同步函数无需改动即可照常工作。
+  if (!window.WORD_EXTRAS) window.WORD_EXTRAS = {};
+
   function loadShard(letter) {
     const key = /^[a-z]$/.test(letter) ? letter : '_';
     if (!shardCache[key]) {
       shardCache[key] = fetch(SHARD_BASE + key + '.json')
         .then(r => (r.ok ? r.json() : {}))
+        .then(shard => {
+          for (const w in shard) {
+            if (shard[w] && shard[w].extras) {
+              window.WORD_EXTRAS[w.toLowerCase()] = shard[w].extras;
+            }
+          }
+          return shard;
+        })
         .catch(() => ({}));   // 拿不到就当没有，绝不阻断弹窗
     }
     return shardCache[key];
+  }
+
+  // 供 word-detail.js 在渲染弹窗前调用，确保该词所在分片已就绪
+  function ensureWordBank(word) {
+    if (!word) return Promise.resolve(null);
+    return loadShard(String(word)[0].toLowerCase());
   }
 
   function getEntry(word) {
@@ -138,4 +157,5 @@
 
   C.addWordBankSections = addWordBankSections;
   C.getWordBankEntry = getEntry;
+  C.ensureWordBank = ensureWordBank;
 })();

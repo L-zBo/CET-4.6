@@ -1146,9 +1146,10 @@
         const wordObj = C.words.find(x => x.word === targetWord) ||
                         C.words.find(x => x.word.toLowerCase() === targetWord.toLowerCase());
         if (wordObj) {
-          // 跳转新单词前先清理当前 keydown，避免监听堆积
+          // 跳转新单词前先清理当前 keydown，避免监听堆积；
+          // 走 C.showWordDetail 以确保目标词所在的 wordbank 分片已加载
           closeOverlay();
-          showWordDetail(wordObj);
+          C.showWordDetail(wordObj);
         }
         return;
       }
@@ -1180,7 +1181,14 @@
   }
 
   // 注册到共享对象
-  C.showWordDetail = showWordDetail;
+  // 弹窗内的同近词/派生词/搭配依赖 window.WORD_EXTRAS，该数据现由 /wordbank 分片按需下发
+  // （原为 3.23MB 同步脚本，占首屏体积最大的一块）。因此渲染前先确保对应分片就绪；
+  // 分片拉取失败时也照常渲染，只是这几块内容为空，不影响弹窗其余部分。
+  C.showWordDetail = function(w) {
+    const render = () => showWordDetail(w);
+    if (C.ensureWordBank && w && w.word) C.ensureWordBank(w.word).then(render, render);
+    else render();
+  };
   C.generateMnemonic = generateMnemonic;
   C.generateMnemonicList = generateMnemonicList;
   C.getBestMnemonic = getBestMnemonic;
