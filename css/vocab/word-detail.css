@@ -884,6 +884,49 @@
   color: var(--text-secondary);
 }
 
+/* --- WordNet 英文同义词 --- */
+.wb-syns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wb-syn-sense {
+  padding: 8px 12px;
+  background: var(--bg-subtle);
+  border-radius: var(--r-sm);
+}
+
+.wb-syn-pos {
+  display: inline-block;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-bottom: 5px;
+  font-style: italic;
+}
+
+.wb-syn-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.wb-syn-word {
+  padding: 3px 10px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-full);
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.wb-syn-desc {
+  margin-top: 6px;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
 /* --- 数据来源署名 --- */
 .wb-credit {
   margin-top: 8px;

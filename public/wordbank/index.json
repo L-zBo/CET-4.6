@@ -30,112 +30,117 @@
     "3": "纯英文无译文"
    }
   },
+  "wordnet": {
+   "source": "zaibacu/thesaurus (extracted from Princeton WordNet)",
+   "license": "WordNet 3.0 License — free for commercial use with attribution",
+   "note": "仅检索筛选，未生成任何词条；多词短语条目已跳过"
+  },
   "note": "按首字母分片，前端按需 fetch；phonetic/pos/detail/audio 未下发（见 build_wordbank.py 注释）"
  },
  "shards": {
   "a": {
    "words": 637,
-   "bytes": 704710
+   "bytes": 780892
   },
   "b": {
    "words": 436,
-   "bytes": 523056
+   "bytes": 585960
   },
   "c": {
    "words": 907,
-   "bytes": 1103144
+   "bytes": 1226156
   },
   "d": {
    "words": 544,
-   "bytes": 611130
+   "bytes": 674848
   },
   "e": {
    "words": 439,
-   "bytes": 497045
+   "bytes": 546191
   },
   "f": {
    "words": 380,
-   "bytes": 468937
+   "bytes": 519414
   },
   "g": {
    "words": 223,
-   "bytes": 258291
+   "bytes": 288185
   },
   "h": {
    "words": 273,
-   "bytes": 317687
+   "bytes": 352450
   },
   "i": {
    "words": 408,
-   "bytes": 463865
+   "bytes": 503109
   },
   "j": {
    "words": 63,
-   "bytes": 71359
+   "bytes": 78369
   },
   "k": {
    "words": 44,
-   "bytes": 51271
+   "bytes": 57908
   },
   "l": {
    "words": 271,
-   "bytes": 338484
+   "bytes": 368760
   },
   "m": {
    "words": 401,
-   "bytes": 467430
+   "bytes": 508787
   },
   "n": {
    "words": 151,
-   "bytes": 166659
+   "bytes": 179918
   },
   "o": {
    "words": 210,
-   "bytes": 237023
+   "bytes": 258104
   },
   "p": {
    "words": 680,
-   "bytes": 846969
+   "bytes": 924696
   },
   "q": {
    "words": 45,
-   "bytes": 53222
+   "bytes": 56796
   },
   "r": {
    "words": 474,
-   "bytes": 565509
+   "bytes": 622634
   },
   "s": {
    "words": 895,
-   "bytes": 1034416
+   "bytes": 1136499
   },
   "t": {
    "words": 378,
-   "bytes": 430266
+   "bytes": 472269
   },
   "u": {
    "words": 122,
-   "bytes": 113432
+   "bytes": 121532
   },
   "v": {
    "words": 137,
-   "bytes": 149489
+   "bytes": 162002
   },
   "w": {
    "words": 204,
-   "bytes": 213358
+   "bytes": 237261
   },
   "x": {
    "words": 3,
-   "bytes": 2928
+   "bytes": 3205
   },
   "y": {
    "words": 23,
-   "bytes": 22059
+   "bytes": 24598
   },
   "z": {
    "words": 15,
-   "bytes": 12090
+   "bytes": 13350
   }
  }
 }

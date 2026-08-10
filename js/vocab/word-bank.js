@@ -117,7 +117,29 @@
       '按 CC-BY 2.0 FR 使用，仅做检索筛选与繁简转换，未作任何改写</div>');
   }
 
-  // ---------- D. 英文释义（默认折叠）----------
+  // ---------- D. WordNet 英文同义词 ----------
+  // 补 kajweb 同近词未覆盖的部分：两者并集把同义词覆盖率从 59.2% 提到 82.4%，
+  // 新补的大纲词几乎全靠这份数据。
+  function buildWordNetSynHTML(entry) {
+    const list = entry.wnsyn;
+    if (!list || !list.length) return '';
+    const rows = list.map(s => {
+      const words = (s.syn || []).map(x =>
+        '<span class="wb-syn-word">' + C.esc(x) + '</span>').join('');
+      if (!words) return '';
+      return '<div class="wb-syn-sense">' +
+        (s.pos ? '<span class="wb-syn-pos">' + C.esc(s.pos) + '</span>' : '') +
+        '<div class="wb-syn-words">' + words + '</div>' +
+        (s.desc ? '<div class="wb-syn-desc">' + C.esc(s.desc) + '</div>' : '') +
+      '</div>';
+    }).join('');
+    if (!rows) return '';
+    return section('🔗 英文同义词',
+      '<div class="wb-syns">' + rows + '</div>' +
+      '<div class="wb-credit">同义词来自 <a href="https://wordnet.princeton.edu" target="_blank" rel="noopener">Princeton WordNet</a></div>');
+  }
+
+  // ---------- E. 英文释义（默认折叠）----------
   function buildEnDefHTML(entry) {
     const lines = splitLines(entry.definition);
     if (!lines.length) return '';
@@ -145,7 +167,7 @@
       }
 
       // 后置区（例句 + 英文释义）追加到末尾
-      const tailHTML = buildExamplesHTML(entry, w) + buildEnDefHTML(entry);
+      const tailHTML = buildExamplesHTML(entry, w) + buildWordNetSynHTML(entry) + buildEnDefHTML(entry);
       if (tailHTML) {
         const tail = document.createElement('div');
         tail.className = 'wb-tail-group';
