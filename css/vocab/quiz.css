@@ -375,3 +375,19 @@
 .due-now { background: var(--coral-dim); color: var(--coral); }
 .due-soon { background: var(--amber-dim); color: var(--amber); }
 .due-later { background: var(--emerald-dim); color: var(--emerald); }
+
+/* ========== 看图猜词题型 ========== */
+/* 配图来自 Openverse（CC 可商用），尺寸不一，统一按容器等比缩放并限高，避免撑破题目卡片 */
+.quiz-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 240px;
+  border-radius: var(--r-md);
+  object-fit: contain;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 600px) {
+  .quiz-image { max-height: 170px; }
+}

@@ -36,6 +36,10 @@ app.use('/assets', express.static(path.join(root, 'assets')));
 app.use('/wordbank', express.static(path.join(root, 'public', 'wordbank'), {
   maxAge: '7d',
 }));
+// 看图猜词题型的配图（Openverse CC 授权，署名见 _credits.json）
+app.use('/word_images', express.static(path.join(root, 'public', 'word_images'), {
+  maxAge: '7d',
+}));
 function sendIndex(req, res) {
   res.setHeader('Cache-Control', 'no-cache');
   res.sendFile(path.join(root, 'ACE-The-CET.html'));

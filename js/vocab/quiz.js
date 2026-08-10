@@ -4,6 +4,16 @@
   'use strict';
   const C = window._C;
 
+  // ====== 看图猜词题型 ======
+  // 配图来自 Openverse（CC 可商用授权），仅覆盖筛选出的具象名词——
+  // 抽象词搜图必然跑偏（实测 ability→鸡汤图、accordingly→完全不相干），故一律不配图。
+  // 词表由 public/word_images/_credits.json 提供，加载失败则该题型自动不出现。
+  const IMG_WORDS = new Set();
+  fetch('word_images/_credits.json')
+    .then(r => (r.ok ? r.json() : null))
+    .then(d => { if (d && d.data) Object.keys(d.data).forEach(w => IMG_WORDS.add(w)); })
+    .catch(() => {});
+
   // ====== 测验进度保存/恢复 ======
   function quizKey() { return 'cet_quiz_' + C.currentLevel; }
 
@@ -246,15 +256,23 @@
     const selected = range === 'daily' ? pool : pool.slice(0, Math.min(count, pool.length));
 
     C.quizQuestions = selected.map(w => {
-      const qt = type === 'mixed' ? (Math.random() > 0.5 ? 'en2cn' : 'cn2en') : type;
+      let qt = type === 'mixed' ? (Math.random() > 0.5 ? 'en2cn' : 'cn2en') : type;
+      // 该词有配图时，在混合模式下有一定概率出成看图猜词（图 + 四个英文单词选项）
+      if (type === 'mixed' && IMG_WORDS.has(w.word) && Math.random() < 0.35) {
+        qt = 'img2en';
+      }
 
-      const dist = pickDistractors(w, qt, 3);
+      const dist = pickDistractors(w, qt === 'img2en' ? 'cn2en' : qt, 3);
 
       let question, correct, choices;
       if (qt === 'en2cn') {
         question = w.word;
         correct = w.meaning;
         choices = [w, ...dist].map(x => ({ text: x.meaning, word: x.word }));
+      } else if (qt === 'img2en') {
+        question = w.word;                 // 题干渲染成图片，答案仍是英文单词
+        correct = w.word;
+        choices = [w, ...dist].map(x => ({ text: x.word, word: x.word }));
       } else {
         question = w.meaning;
         correct = w.word;
@@ -299,8 +317,15 @@
     C.text('quiz-current', C.quizIdx + 1);
     C.text('quiz-correct', C.quizCorrect);
     C.text('quiz-wrong', C.quizWrong);
-    C.text('quiz-type-label', q.type === 'en2cn' ? '英译中' : '中译英');
-    C.text('quiz-question', q.question);
+    C.text('quiz-type-label', q.type === 'en2cn' ? '英译中' : q.type === 'img2en' ? '看图猜词' : '中译英');
+    // 看图猜词：题干位置改渲染配图；其余题型仍是纯文本
+    const qEl = C.$('quiz-question');
+    if (qEl && q.type === 'img2en') {
+      qEl.innerHTML = '<img class="quiz-image" src="word_images/' + encodeURIComponent(q.word) +
+        '.jpg" alt="看图猜词" loading="lazy">';
+    } else {
+      C.text('quiz-question', q.question);
+    }
     renderQuizMemoryTip(null);
 
     // 随机颜色主题应用到题目卡片
