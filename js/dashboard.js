@@ -4,6 +4,33 @@
   'use strict';
   const C = window._C;
 
+  // 问候语渲染（按天气 × 时段双维，42 格 × 50 句，详见 dashboard_greetings.js）。
+  // 单独抽出来是因为存在时序问题：renderDashboard 首帧执行时 fetchWeather 还没回来，
+  // C.weatherCache 为 null，pickGreeting 内部 bucketByWeather(null) 会退化到 'cloudy' 档。
+  // 天气异步到达后只更新了图标和粒子，问候语却停在多云不动——表现为"下雨天配多云标语"。
+  // 修复：weather.js 的 applyWeatherEffect 拿到真实 code 后回调本函数重选。(2026-08-10)
+  function renderGreeting(codeOverride) {
+    const h = new Date().getHours();
+    let g, timeIcon;
+    if (C.pickGreeting) {
+      // 优先用调用方直接给的 code（applyWeatherEffect 回调时传入，不受 weatherCache 写入时序影响）
+      const weatherCode = (codeOverride != null)
+        ? codeOverride
+        : (C.weatherCache ? C.weatherCache.weather_code : null);
+      const picked = C.pickGreeting(h, weatherCode);
+      g = picked.text;
+      timeIcon = picked.icon;
+    } else {
+      // 兜底（dashboard_greetings.js 还没加载完时）
+      g = '继续加油';
+      timeIcon = h < 6 ? '🌙' : h < 9 ? '🌅' : h < 12 ? '☀️' : h < 14 ? '🌞' : h < 18 ? '🌤️' : h < 21 ? '🌆' : '🌙';
+    }
+    C.text('dash-greeting', g);
+    C.text('dash-time-icon', timeIcon);
+    C.applyTextStroke(C.$('dash-greeting'));
+  }
+  C.renderGreeting = renderGreeting;
+
   function renderDashboard() {
     const total = C.words.length;
     const mastered = C.words.filter(w => C.status(w.word) === 'mastered').length;
@@ -24,25 +51,11 @@
     const bar = C.$('progress-bar');
     if (bar) bar.style.width = Math.max(3, pct) + '%';
 
-    // 问候语：按天气×时段双维，每格 20 句随机（详见 dashboard_greetings.js）
-    // 没拿到天气时退化为只看时段。
-    const h = new Date().getHours();
-    let g, timeIcon;
-    if (C.pickGreeting) {
-      const weatherCode = C.weatherCache ? C.weatherCache.weather_code : null;
-      const picked = C.pickGreeting(h, weatherCode);
-      g = picked.text;
-      timeIcon = picked.icon;
-    } else {
-      // 兜底（dashboard_greetings.js 还没加载完时）
-      g = '继续加油';
-      timeIcon = h < 6 ? '🌙' : h < 9 ? '🌅' : h < 12 ? '☀️' : h < 14 ? '🌞' : h < 18 ? '🌤️' : h < 21 ? '🌆' : '🌙';
-    }
-    C.text('dash-greeting', g);
-    C.text('dash-time-icon', timeIcon);
+    // 问候语（含天气档位选择、时段图标、描边）统一走 renderGreeting；
+    // 天气异步到达后由 weather.js 的 applyWeatherEffect 回调重刷，避免天气/标语错配。
+    renderGreeting();
 
     // 随机颜色描边效果
-    C.applyTextStroke(C.$('dash-greeting'));
     C.applyTextStroke(C.$('dash-sub'));
 
     // 获取天气（获取失败时应用时间段效果）

@@ -726,3 +726,179 @@
   color: var(--sky);
   border-color: rgba(96,165,250,0.3);
 }
+
+/* ========== 词库增强数据 (word-bank.js) ========== */
+/* ECDICT 词形变化 / 词频考纲 + Tatoeba 真实例句。全部走主题变量，跟随主题切换。 */
+
+/* --- 词形变化 --- */
+.wb-forms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.wb-form {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-full);
+}
+
+.wb-form-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+
+.wb-form-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* --- 词频与考纲徽章 --- */
+.wb-ranks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.wb-badge {
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.wb-badge-oxford {
+  background: var(--amber-dim);
+  border-color: rgba(240, 165, 0, 0.3);
+  color: var(--amber);
+}
+
+.wb-tag-cet4,
+.wb-tag-cet6 {
+  background: var(--emerald-dim);
+  border-color: rgba(52, 211, 153, 0.3);
+  color: var(--emerald);
+}
+
+.wb-rank {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Tatoeba 例句 --- */
+.wb-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wb-example {
+  padding: 10px 14px;
+  background: var(--bg-subtle);
+  border-left: 3px solid var(--border);
+  border-radius: var(--r-sm);
+  transition: border-color var(--t-fast) var(--ease);
+}
+
+.wb-example:hover {
+  border-left-color: var(--amber);
+}
+
+.wb-ex-en {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.wb-ex-en mark {
+  background: var(--amber-dim);
+  color: var(--amber);
+  padding: 0 2px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.wb-ex-zh {
+  margin-top: 5px;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.wb-ex-notrans {
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 0.78rem;
+}
+
+.wb-ex-src {
+  margin-top: 6px;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- 英文释义（折叠） --- */
+.wb-endef summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.wb-endef summary::-webkit-details-marker {
+  display: none;
+}
+
+.wb-summary::before {
+  content: '▸';
+  margin-right: 4px;
+  transition: transform var(--t-fast) var(--ease);
+  display: inline-block;
+}
+
+.wb-endef details[open] .wb-summary::before {
+  transform: rotate(90deg);
+}
+
+.wb-endef-list {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.wb-endef-list li {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* --- 数据来源署名 --- */
+.wb-credit {
+  margin-top: 8px;
+  font-size: 0.68rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.wb-credit a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.wb-credit a:hover {
+  color: var(--amber);
+}
+

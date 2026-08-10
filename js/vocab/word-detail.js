@@ -1165,6 +1165,12 @@
       C.addPracticeButtons(bodyDiv, w);
     }
 
+    // 词库增强数据：ECDICT 词形变化/词频考纲 + Tatoeba 真实例句。
+    // 走 /wordbank 分片按需异步加载，拿不到数据时静默跳过，不影响弹窗其余部分。
+    if (bodyDiv && C.addWordBankSections) {
+      C.addWordBankSections(bodyDiv, w);
+    }
+
     // 给弹窗加彩色透明背景
     const modal = overlay.querySelector('.word-detail-modal');
     if (modal && C.applyCardTheme) C.applyCardTheme(modal);

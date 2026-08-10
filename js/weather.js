@@ -806,6 +806,11 @@
   let rippleTimer = null;
   let puddleGrowTimer = null;
   let waterAnimalsSpawned = false;
+  // 彩蛋兜底 timer：原设计只在积水/积雪涨到阈值才召唤，毛毛雨要等 6 分钟以上，
+  // 绝大多数用户根本等不到，13 个 Lottie 素材形同摆设。改为"下满 90 秒无论多高必召唤"。
+  const ANIMAL_FALLBACK_MS = 90000;
+  let animalFallbackTimer = null;
+  let snowmenFallbackTimer = null;
 
   // 池塘小动物（13 种基础 × hue/scale/flip 变体 → 100+ 不重样）。
   // 用 emoji 而非 OpenMoji/Twemoji SVG：零依赖、首屏不加载几百 KB；
@@ -865,15 +870,28 @@
   const clampNum = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
 
   function createRainPuddle(container, intensity) {
-    // 底部积水层 — 从 4px 起，慢慢涨到 viewport 25%；触顶后生成动物彩蛋
+    // 底部积水层 — 从 4px 起涨到 viewport 12%；触顶后生成动物彩蛋。
+    // 阈值原为 25%，实测毛毛雨要 6.7 分钟、雷暴 1.5 分钟才触发，改 12% 后减半。(2026-08-10)
     const puddle = document.createElement('div');
     puddle.className = 'rain-puddle';
     let curH = 4;
-    const targetH = Math.round(window.innerHeight * 0.25);
+    const targetH = Math.round(window.innerHeight * 0.12);
     puddle.style.height = curH + 'px';
     puddle.dataset.targetH = targetH;
     container.appendChild(puddle);
     waterAnimalsSpawned = false;
+
+    // 兜底：下满 90 秒不管积水涨到哪都召唤，保证彩蛋一定能被看到
+    if (animalFallbackTimer) clearTimeout(animalFallbackTimer);
+    animalFallbackTimer = setTimeout(() => {
+      animalFallbackTimer = null;
+      const p = document.querySelector('.rain-puddle');
+      if (p && !waterAnimalsSpawned) {
+        waterAnimalsSpawned = true;
+        spawnWaterAnimals(p, intensity);
+        console.info('[weather] 下满 90s 兜底触发，召唤小动物 🐟🐸');
+      }
+    }, ANIMAL_FALLBACK_MS);
 
     // 增长 timer：雨越大涨得越快（雷暴 ~1s 一次 1.5-3 px；毛毛雨 ~3s 一次 1.3 px）
     const growStep = 1.2 + intensity.drops * 0.012;
@@ -1093,6 +1111,7 @@
     lottieInstances = [];
     document.querySelectorAll('.water-animal').forEach(el => el.remove());
     waterAnimalsSpawned = false;
+    if (animalFallbackTimer) { clearTimeout(animalFallbackTimer); animalFallbackTimer = null; }
   }
 
   // ========== 积雪效果 ==========
@@ -1260,6 +1279,18 @@
         console.info(`[weather] 积雪达 70% (${threshold.toFixed(1)}px)，召唤雪人 ⛄`);
       }
     }, growRate);
+
+    // 兜底：下满 90 秒不管积雪多高都召唤雪人，与雨天彩蛋保持一致
+    if (snowmenFallbackTimer) clearTimeout(snowmenFallbackTimer);
+    snowmenFallbackTimer = setTimeout(() => {
+      snowmenFallbackTimer = null;
+      const pile = document.querySelector('.snow-accumulation');
+      if (pile && !snowmenSpawned) {
+        snowmenSpawned = true;
+        spawnSnowmen(pile, intensity);
+        console.info('[weather] 下满 90s 兜底触发，召唤雪人 ⛄');
+      }
+    }, ANIMAL_FALLBACK_MS);
   }
 
   // ========== 雪彩蛋：积雪到 70% 上限召唤的雪人 ==========
@@ -1319,6 +1350,7 @@
   function stopSnowmen() {
     document.querySelectorAll('.snowman').forEach(el => el.remove());
     snowmenSpawned = false;
+    if (snowmenFallbackTimer) { clearTimeout(snowmenFallbackTimer); snowmenFallbackTimer = null; }
   }
 
   // ========== 清理按钮（排水/铲雪） ==========
@@ -1462,6 +1494,11 @@
   }
 
   function applyWeatherEffect(code) {
+    // 问候语跟着真实天气重选：renderDashboard 首帧跑在 fetchWeather 之前，
+    // 那时 weatherCache 还是 null，标语会退化到 cloudy 档；这里拿到真实 code 后回刷一次，
+    // 否则出现"雨天图标 + 多云标语"的错配。(2026-08-10)
+    if (C.renderGreeting) C.renderGreeting(code);
+
     document.querySelectorAll('.weather-effect').forEach(el => el.remove());
     document.querySelectorAll('.weather-cleanup-btn').forEach(el => el.remove());
     if (rippleTimer) { clearInterval(rippleTimer); rippleTimer = null; }

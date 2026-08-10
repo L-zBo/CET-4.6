@@ -31,6 +31,11 @@ app.use('/bg_png', express.static(path.join(root, 'bg_png')));
 app.use('/logo', express.static(path.join(root, 'logo')));
 // Lottie 动画素材（雨天积水小动物彩蛋，本地化加载）
 app.use('/assets', express.static(path.join(root, 'assets')));
+// 词库增强数据分片（ECDICT 词形变化/词频/星级 + Tatoeba 例句），按首字母分片供前端按需 fetch。
+// 走长缓存：内容由 scripts/build_wordbank.py 生成，变更时文件名不变但整体重建，属低频变更。
+app.use('/wordbank', express.static(path.join(root, 'public', 'wordbank'), {
+  maxAge: '7d',
+}));
 function sendIndex(req, res) {
   res.setHeader('Cache-Control', 'no-cache');
   res.sendFile(path.join(root, 'ACE-The-CET.html'));
