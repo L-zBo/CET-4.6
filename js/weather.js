@@ -865,6 +865,22 @@
     { file: 'frog',      motion: 'float' },
     { file: 'octopus',   motion: 'float' },
   ];
+  // 晴天陆地动物：同源 Google Noto Animated Emoji（assets/lottie/*.json），
+  // 走地面带 .sunny-ground 而非积水层；蝴蝶/鸟用 float 飘浮，其余贴地慢走。
+  const LOTTIE_LAND_ANIMALS = [
+    { file: 'cat',       motion: 'crawl' },
+    { file: 'dog',       motion: 'crawl' },
+    { file: 'poodle',    motion: 'crawl' },
+    { file: 'rabbit',    motion: 'crawl' },
+    { file: 'fox',       motion: 'crawl' },
+    { file: 'bear',      motion: 'crawl' },
+    { file: 'panda',     motion: 'crawl' },
+    { file: 'chipmunk',  motion: 'crawl' },
+    { file: 'butterfly', motion: 'float' },
+    { file: 'bird',      motion: 'float' },
+  ];
+  const SUNNY_ANIMAL_DELAY_MS = 12000;   // 晴天没有蓄积过程，进入后 12 秒放出动物
+  let sunnyAnimalTimer = null;
   let lottieInstances = [];   // 存活的 lottie 实例；stopWaterAnimals 时统一 destroy 防内存泄漏
   let roamTimers = [];        // 二维随机游走的 setTimeout 句柄；stopWaterAnimals 时清空
   const clampNum = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
@@ -942,9 +958,10 @@
   //   .water-animal-body  朝向 —— JS 按水平移动方向写 scaleX(±1)
   //   .water-animal-inner 跳跃 —— 点击时播 CSS animalHop / animalDart（装载 SVG/Lottie）
   // 渲染双路：USE_LOTTIE 且库就绪 → 本地 Lottie（Noto 动物）；否则回退手写 SVG。
-  function spawnWaterAnimals(puddle, intensity) {
+  function spawnWaterAnimals(puddle, intensity, pool) {
     const count = 2 + Math.floor(Math.random() * 2);   // 2-3 只
-    const useLottie = USE_LOTTIE && window.lottie && LOTTIE_ANIMALS.length > 0;
+    const ANIMALS = pool || LOTTIE_ANIMALS;            // 晴天传入陆地动物池，其余默认水生
+    const useLottie = USE_LOTTIE && window.lottie && ANIMALS.length > 0;
     const svgTypes = Object.keys(SVG_WATER_CREATURES);
 
     for (let i = 0; i < count; i++) {
@@ -959,7 +976,7 @@
       let lottiePick = null, motion = 'swim', palette = null;
       const svgFallbackType = svgTypes[Math.floor(Math.random() * svgTypes.length)];
       if (useLottie) {
-        lottiePick = LOTTIE_ANIMALS[Math.floor(Math.random() * LOTTIE_ANIMALS.length)];
+        lottiePick = ANIMALS[Math.floor(Math.random() * ANIMALS.length)];
         motion = lottiePick.motion;
       } else {
         inner.innerHTML = SVG_WATER_CREATURES[svgFallbackType];
@@ -1103,6 +1120,25 @@
     roamTimers.push(wrap._roamTimer);
   }
 
+  // 晴天彩蛋：没有积水/积雪那样的蓄积过程，改在页面底部铺一条透明地面带，
+  // 延迟一小段时间后放出猫狗等陆地动物散步。DOM 与清理均复用水生动物那一套（class 同为 .water-animal）。
+  function createSunnyGround(container, intensity) {
+    const ground = document.createElement('div');
+    ground.className = 'sunny-ground';
+    ground.style.cssText = 'position:absolute;left:0;right:0;bottom:0;height:16vh;pointer-events:none;';
+    container.appendChild(ground);
+    waterAnimalsSpawned = false;
+    if (sunnyAnimalTimer) clearTimeout(sunnyAnimalTimer);
+    sunnyAnimalTimer = setTimeout(() => {
+      sunnyAnimalTimer = null;
+      const g = document.querySelector('.sunny-ground');
+      if (!g || waterAnimalsSpawned) return;
+      waterAnimalsSpawned = true;
+      spawnWaterAnimals(g, intensity || { drops: 60 }, LOTTIE_LAND_ANIMALS);
+      console.info('[weather] 晴天彩蛋：陆地小动物出没 🐱🐶');
+    }, SUNNY_ANIMAL_DELAY_MS);
+  }
+
   function stopWaterAnimals() {
     if (puddleGrowTimer) { clearInterval(puddleGrowTimer); puddleGrowTimer = null; }
     roamTimers.forEach(t => clearTimeout(t));
@@ -1110,8 +1146,10 @@
     lottieInstances.forEach(a => { try { a.destroy(); } catch (e) {} });
     lottieInstances = [];
     document.querySelectorAll('.water-animal').forEach(el => el.remove());
+    document.querySelectorAll('.sunny-ground').forEach(el => el.remove());
     waterAnimalsSpawned = false;
     if (animalFallbackTimer) { clearTimeout(animalFallbackTimer); animalFallbackTimer = null; }
+    if (sunnyAnimalTimer) { clearTimeout(sunnyAnimalTimer); sunnyAnimalTimer = null; }
   }
 
   // ========== 积雪效果 ==========
@@ -1752,6 +1790,12 @@
       mount.appendChild(effectEl);
       startCardSunGlows('noon');
     }
+
+    // 晴天彩蛋统一挂载：清晨/黄昏的晴天走的是上面 isDusk 那条分支、晴朗夜晚走 isNight 分支，
+    // 只挂在 type==='sunny' 分支里会漏掉这几个时段，因此放到 if-else 链之外统一判断。
+    if (type === 'sunny' && effectEl && effectEl.isConnected) {
+      createSunnyGround(effectEl, intensity);
+    }
   }
 
   // 无天气数据时，根据时段应用效果（由 app.js 调用）
@@ -1892,6 +1936,18 @@
       spawnSnowmen(pile, intensity);
       console.info('[weather] debugFillSnow: 积雪填满 + 雪人已召唤');
     }
+  };
+
+  // 调试入口：跳过 12 秒等待，立刻放出晴天陆地动物。
+  window.debugSunnyAnimals = function() {
+    const g = document.querySelector('.sunny-ground');
+    if (!g) { console.warn('[weather] 当前没有地面带，请先 testWeather("sunny")'); return; }
+    if (sunnyAnimalTimer) { clearTimeout(sunnyAnimalTimer); sunnyAnimalTimer = null; }
+    if (waterAnimalsSpawned) { console.info('[weather] 陆地动物已在场'); return; }
+    waterAnimalsSpawned = true;
+    const code = (C.weatherCache && C.weatherCache.weather_code) ?? 0;
+    spawnWaterAnimals(g, getWeatherIntensity(code) || { drops: 60 }, LOTTIE_LAND_ANIMALS);
+    console.info('[weather] debugSunnyAnimals: 陆地小动物已召唤 🐱🐶');
   };
 
   // 强制按手动地址重跑整套天气流程：清缓存 + 用 manual 坐标走完整 fetchWeatherByCoords。
