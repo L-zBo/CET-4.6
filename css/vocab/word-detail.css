@@ -727,6 +727,38 @@
   border-color: rgba(96,165,250,0.3);
 }
 
+/* ========== 区块折叠（word-detail.js applyCollapsible） ========== */
+/* 弹窗区块多，默认只展开「释义」和「例句」，其余收起，点标题展开。 */
+.word-detail-section.is-collapsible > .word-detail-section-title {
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--t-fast) var(--ease);
+}
+
+.word-detail-section.is-collapsible > .word-detail-section-title:hover {
+  color: var(--text-secondary);
+}
+
+.word-detail-section.is-collapsible > .word-detail-section-title::before {
+  content: '▾';
+  display: inline-block;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  transition: transform var(--t-fast) var(--ease);
+}
+
+.word-detail-section.is-collapsed > .word-detail-section-title::before {
+  transform: rotate(-90deg);
+}
+
+.word-detail-section.is-collapsed > *:not(.word-detail-section-title) {
+  display: none;
+}
+
+.word-detail-section.is-collapsed {
+  margin-bottom: 10px;
+}
+
 /* ========== 词库增强数据 (word-bank.js) ========== */
 /* ECDICT 词形变化 / 词频考纲 + Tatoeba 真实例句。全部走主题变量，跟随主题切换。 */
 

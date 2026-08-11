@@ -86,8 +86,8 @@
       const label = { cet4: '四级', cet6: '六级', ky: '考研', toefl: '托福', ielts: '雅思', gre: 'GRE', zk: '中考', gk: '高考' }[t];
       if (label) bits.push('<span class="wb-badge wb-tag-' + C.esc(t) + '">' + label + '</span>');
     });
-    if (entry.bnc) bits.push('<span class="wb-rank">BNC 词频 #' + entry.bnc + '</span>');
-    if (entry.frq) bits.push('<span class="wb-rank">当代语料 #' + entry.frq + '</span>');
+    // BNC / 当代语料的具体排名（#6548 这类）对备考没有实际指导意义，只会占位碍眼，
+    // 词的重要程度看柯林斯星级和考纲标签就够了，故不再展示原始名次。
     if (!bits.length) return '';
     return section('📊 权威词频与考纲', '<div class="wb-ranks">' + bits.join('') + '</div>');
   }
@@ -210,7 +210,7 @@
         bodyDiv.insertBefore(head, bodyDiv.firstChild);
       }
 
-      // 后置区（例句 + 英文释义）追加到末尾
+      // 后置区（例句 + 同义词 + 英文释义）追加到末尾
       const tailHTML = buildExamplesHTML(entry, w) + buildWordNetSynHTML(entry) + buildEnDefHTML(entry);
       if (tailHTML) {
         const tail = document.createElement('div');
@@ -218,6 +218,9 @@
         tail.innerHTML = tailHTML;
         bodyDiv.appendChild(tail);
       }
+
+      // 异步注入的区块同样套上折叠开关（同步部分已由 showWordDetail 处理过）
+      if (C.applyCollapsible) C.applyCollapsible(bodyDiv);
     });
   }
 

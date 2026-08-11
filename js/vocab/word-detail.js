@@ -1034,6 +1034,30 @@
     return html;
   }
 
+  // ========== 区块折叠 ==========
+  // 弹窗里区块很多（释义/词形变化/考纲/词根/例句/同义词/搭配/易混词…），
+  // 全展开要一直往下拉才能找到想看的。这里统一把每个区块的标题变成开关：
+  // 默认只展开「释义」和「例句」，其余收起，点标题即可展开对应内容。
+  // 由 showWordDetail 与 word-bank.js（异步注入）分别调用，靠 data 标记避免重复处理。
+  const KEEP_OPEN = ['释义', '例句'];
+
+  function applyCollapsible(bodyDiv) {
+    if (!bodyDiv) return;
+    bodyDiv.querySelectorAll('.word-detail-section').forEach(sec => {
+      if (sec.dataset.collapsible) return;
+      const title = sec.querySelector(':scope > .word-detail-section-title');
+      // wb-summary 是 <details> 自带的折叠头，已有原生折叠，跳过
+      if (!title || title.classList.contains('wb-summary')) return;
+      sec.dataset.collapsible = '1';
+      sec.classList.add('is-collapsible');
+      const text = title.textContent || '';
+      // 「英文释义」虽含"释义"二字但属于次要内容，明确排除
+      const keep = KEEP_OPEN.some(k => text.includes(k)) && !text.includes('英文释义');
+      if (!keep) sec.classList.add('is-collapsed');
+    });
+  }
+  C.applyCollapsible = applyCollapsible;
+
   // ========== 显示单词详情弹窗 ==========
 
   function showWordDetail(w) {
@@ -1048,7 +1072,9 @@
     const mnemonicList = generateMnemonicList(w);
     const breakdownHTML = buildWordBreakdown(w);
     const studyHooksHTML = buildStudyHooksHTML(w);
-    const collinsHTML = buildCollinsHTML(w);
+    // 「详细释义」已下线：它与上方「释义」同源（都出自 defs），只是把同一份内容拆成
+    // 一条一行竖排，零信息增量却占掉大半屏，用户需要反复下拉。保留 buildCollinsHTML
+    // 供将来需要时调用，此处不再渲染。
     const freqHTML = buildFreqHTML(w);
     const relationsHTML = buildWordRelationsHTML(w);
 
@@ -1087,7 +1113,6 @@
             '<div class="word-detail-section-title">📖 释义</div>' +
             '<div class="word-detail-meaning">' + C.getDefsHTML(w) + '</div>' +
           '</div>' +
-          collinsHTML +
           buildRealExamSentencesHTML(w) +
           (w.example ?
           '<div class="word-detail-section">' +
@@ -1139,6 +1164,16 @@
         return;
       }
 
+      // 区块标题：点一下折叠/展开该区块
+      const secTitle = e.target.closest('.word-detail-section-title');
+      if (secTitle && !secTitle.classList.contains('wb-summary')) {
+        const sec = secTitle.parentElement;
+        if (sec && sec.classList.contains('is-collapsible')) {
+          sec.classList.toggle('is-collapsed');
+          return;
+        }
+      }
+
       // 可点击的关联词标签
       const tag = e.target.closest('.word-relation-tag[data-word]');
       if (tag) {
@@ -1171,6 +1206,9 @@
     if (bodyDiv && C.addWordBankSections) {
       C.addWordBankSections(bodyDiv, w);
     }
+
+    // 同步渲染的区块先套上折叠；异步注入的部分由 word-bank.js 注入后自行再调一次
+    applyCollapsible(bodyDiv);
 
     // 给弹窗加彩色透明背景
     const modal = overlay.querySelector('.word-detail-modal');
