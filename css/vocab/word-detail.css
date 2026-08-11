@@ -728,27 +728,49 @@
 }
 
 /* ========== 区块折叠（word-detail.js applyCollapsible） ========== */
-/* 弹窗区块多，默认只展开「释义」和「例句」，其余收起，点标题展开。 */
+/* 弹窗区块多，默认只展开「释义」和「例句」，其余收起。
+   标题做成按钮外观：整行可点，右侧箭头指示展开状态。 */
 .word-detail-section.is-collapsible > .word-detail-section-title {
   cursor: pointer;
   user-select: none;
-  transition: color var(--t-fast) var(--ease);
+  padding: 9px 14px;
+  margin-bottom: 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  color: var(--text-secondary);
+  transition: background-color var(--t-fast) var(--ease),
+              border-color var(--t-fast) var(--ease),
+              color var(--t-fast) var(--ease);
 }
 
 .word-detail-section.is-collapsible > .word-detail-section-title:hover {
-  color: var(--text-secondary);
+  background: var(--bg-hover);
+  border-color: var(--border);
+  color: var(--text);
 }
 
-.word-detail-section.is-collapsible > .word-detail-section-title::before {
+/* 原标题用 ::after 画了一条延伸横线，按钮形态下改成右侧箭头 */
+.word-detail-section.is-collapsible > .word-detail-section-title::after {
   content: '▾';
-  display: inline-block;
-  font-size: 0.7rem;
+  flex: 0 0 auto;
+  height: auto;
+  background: none;
+  margin-left: auto;
+  font-size: 0.72rem;
   color: var(--text-dim);
   transition: transform var(--t-fast) var(--ease);
 }
 
-.word-detail-section.is-collapsed > .word-detail-section-title::before {
+.word-detail-section.is-collapsed > .word-detail-section-title::after {
   transform: rotate(-90deg);
+}
+
+/* 展开态给个左侧色条，一眼看出当前打开的是哪块 */
+.word-detail-section.is-collapsible:not(.is-collapsed) > .word-detail-section-title {
+  background: var(--amber-dim);
+  border-color: rgba(240, 165, 0, 0.28);
+  color: var(--amber);
 }
 
 .word-detail-section.is-collapsed > *:not(.word-detail-section-title) {
@@ -756,7 +778,11 @@
 }
 
 .word-detail-section.is-collapsed {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+}
+
+.word-detail-section.is-collapsible {
+  margin-bottom: 14px;
 }
 
 /* ========== 词库增强数据 (word-bank.js) ========== */
