@@ -1,0 +1,232 @@
+/* ========== 考试信息条（exam-info.js） ========== */
+/* 出现在翻译热词 / 写作模板页顶部：倒计时 + 试卷结构 + 翻译高频主题。
+   全部走主题变量，跟随主题切换。 */
+
+.exam-info-host {
+  margin-bottom: 18px;
+}
+
+.exam-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: var(--bg-card, var(--bg-subtle));
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-lg);
+}
+
+.exam-banner.exam-loading,
+.exam-banner.exam-banner-fail {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* --- 倒计时 --- */
+.exam-countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 88px;
+  padding: 8px 14px;
+  background: var(--amber-dim);
+  border: 1px solid rgba(240, 165, 0, 0.3);
+  border-radius: var(--r-md);
+}
+
+.exam-cd-num {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+}
+
+.exam-cd-unit {
+  margin-top: 2px;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+/* --- 主信息 --- */
+.exam-main {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.exam-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 7px;
+}
+
+.exam-times {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+
+.exam-time-chip {
+  padding: 2px 10px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-full);
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.exam-chip-dim {
+  color: var(--text-dim);
+}
+
+.exam-note,
+.exam-warn {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.exam-warn {
+  margin-top: 4px;
+  color: var(--amber);
+}
+
+/* --- 数据状态 --- */
+.exam-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-left: auto;
+  text-align: right;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.exam-updated {
+  color: var(--text-dim);
+}
+
+.exam-online {
+  color: var(--emerald);
+}
+
+.exam-offline {
+  color: var(--coral);
+}
+
+.exam-offline-tip {
+  flex: 1 1 100%;
+  padding: 7px 12px;
+  background: var(--coral-dim);
+  border-radius: var(--r-sm);
+  font-size: 0.76rem;
+  color: var(--coral);
+}
+
+/* --- 折叠区：试卷结构 / 翻译主题 --- */
+.exam-fold {
+  margin-top: 10px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.exam-fold > summary {
+  padding: 9px 14px;
+  background: var(--bg-subtle);
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  list-style: none;
+  transition: background-color var(--t-fast) var(--ease);
+}
+
+.exam-fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+.exam-fold > summary:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.exam-fold-body {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exam-sec-row,
+.exam-theme-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.exam-sec-name,
+.exam-theme-name {
+  min-width: 76px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.exam-sec-weight {
+  color: var(--amber);
+  font-weight: 600;
+}
+
+.exam-sec-score,
+.exam-sec-min {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.exam-sec-detail {
+  flex: 1 1 220px;
+  color: var(--text-dim);
+  font-size: 0.76rem;
+}
+
+.exam-theme-eg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.exam-theme-tag {
+  padding: 2px 9px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-full);
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+}
+
+.exam-credit {
+  margin-top: 4px;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+@media (max-width: 640px) {
+  .exam-meta {
+    margin-left: 0;
+    text-align: left;
+    flex-direction: row;
+    gap: 10px;
+  }
+  .exam-cd-num { font-size: 1.6rem; }
+}

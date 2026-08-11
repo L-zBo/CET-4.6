@@ -103,6 +103,9 @@ const App = (() => {
       el.style.display = '';
       if (tool === 'translation' && C.renderTranslation) C.renderTranslation();
       if (tool === 'writing' && C.renderWriting) C.renderWriting();
+      // 顶部考试信息条（倒计时/试卷结构/翻译主题）。数据走 /api/exam/info，
+      // 会话内缓存，无网时回退到随程序分发的基线数据并如实提示。
+      if (C.renderExamBanner) C.renderExamBanner(tool);
     }
   }
   function closeTool() {

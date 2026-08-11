@@ -91,6 +91,8 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/data', require('./routes/data'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/geocode', require('./routes/geocode'));
+// 考试日程 / 试卷结构 / 翻译主题：有网校验官方站，无网回退随程序分发的基线数据
+app.use('/api/exam', require('./routes/exam'));
 
 // SPA 回退（仅非 API 路径）
 app.get('*', (req, res) => {
