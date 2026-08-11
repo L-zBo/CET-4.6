@@ -65,8 +65,8 @@ const dbReady = (async () => {
     db.run('INSERT INTO users (username, password, role) VALUES (?, ?, ?)',
       [config.adminUsername, hash, 'admin']);
     // 安全：不在启动窗口打印明文密码（防肩窥）。
-    // 默认凭据请查 管理员须知.txt（仅管理员可见）。
-    console.log('  [DB] 已自动创建管理员账号（默认凭据请查 管理员须知.txt）');
+    // 默认凭据请查 reference/管理员须知.txt（仅管理员可见，不进仓库）。
+    console.log('  [DB] 已自动创建管理员账号（默认凭据请查 reference/管理员须知.txt）');
   }
 
   // 持久化
